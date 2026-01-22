@@ -6,7 +6,8 @@
       "name": "MetasyncApplication",
       "request": "launch",
       "mainClass": "com.osweld.metasync.MetasyncApplication",
-      "projectName": "metasync"
+      "projectName": "metasync",
+       "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
