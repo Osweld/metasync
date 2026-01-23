@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl{
+public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl<String>{
 
     private final DataSource dataSource;
 
@@ -26,14 +26,14 @@ public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMu
     }
 
     @Override
-    protected DataSource selectDataSource(Object tenantIdentifier) {
+    protected DataSource selectDataSource(String tenantIdentifier) {
         return dataSource;
     }
 
     @Override
-    public Connection getConnection(Object tenantIdentifier) throws SQLException {
+    public Connection getConnection(String tenantIdentifier) throws SQLException {
       
-        String tenandId =  (tenantIdentifier != null) ? tenantIdentifier.toString() : AppTenantContext.DEFAULT_TENANT_ID;
+        String tenandId =  (tenantIdentifier != null) ? tenantIdentifier : AppTenantContext.DEFAULT_TENANT_ID;
         log.debug("Getting connection for tenant: {}", tenandId);
 
         Connection connection = getAnyConnection();
@@ -49,7 +49,7 @@ public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMu
     }
 
     @Override
-    public void releaseConnection(Object tenantIdentifier, Connection connection) throws SQLException {
+    public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
         try(Statement stmt = connection.createStatement()){
             stmt.execute("SET search_path TO " + AppTenantContext.DEFAULT_TENANT_ID);
         }catch(SQLException e){
