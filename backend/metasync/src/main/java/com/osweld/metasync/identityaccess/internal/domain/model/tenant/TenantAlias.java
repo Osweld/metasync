@@ -1,4 +1,4 @@
-package com.osweld.metasync.tenant.internal.domain.model.identityaccess;
+package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
 
 import java.util.regex.Pattern;
 
