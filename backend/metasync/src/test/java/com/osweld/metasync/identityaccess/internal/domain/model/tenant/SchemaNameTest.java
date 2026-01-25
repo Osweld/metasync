@@ -26,6 +26,14 @@ public class SchemaNameTest {
     }
 
     @Test
+    @DisplayName("Should consider two SchemaNames with different values as unequal")
+    void testSchemaNameInequality() {
+        SchemaName schemaName1 = new SchemaName("schema_one");
+        SchemaName schemaName2 = new SchemaName("schema_two");
+        assertThat(schemaName1).isNotEqualTo(schemaName2);
+    }
+
+    @Test
     @DisplayName("Should throw IllegalArgumentException for invalid SchemaName")
     void testSchemaNameIsNull() {
         assertThatThrownBy(() -> new SchemaName(null))
@@ -60,6 +68,21 @@ public class SchemaNameTest {
         String maxName = "a".repeat(63);
         SchemaName schemaName = new SchemaName(maxName);
         assertThat(schemaName.value()).isEqualTo(maxName);
+    }
+
+    @Test
+    @DisplayName("Should return String representation of SchemaName")
+    void testSchemaNameToString() {
+        SchemaName schemaName = new SchemaName("tenant_schema");
+        assertThat(schemaName.toString()).isEqualTo("tenant_schema");
+    }
+
+    @Test
+    @DisplayName("Should have same hashCode for equal SchemaNames")
+    void testHashCodeConsistency() {
+        SchemaName name1 = new SchemaName("schema_name");
+        SchemaName name2 = new SchemaName("schema_name");
+        assertThat(name1.hashCode()).isEqualTo(name2.hashCode());
     }
 
 }
