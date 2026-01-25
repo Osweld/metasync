@@ -30,6 +30,14 @@ public class TenantAliasTest {
     }
 
     @Test
+    @DisplayName("Should consider two TenantAliases with different values as unequal")
+    void testTenantAliasInequality() {
+        TenantAlias tenantAlias1 = new TenantAlias("alias-one");
+        TenantAlias tenantAlias2 = new TenantAlias("alias-two");
+        assertThat(tenantAlias1).isNotEqualTo(tenantAlias2);
+    }
+
+    @Test
     @DisplayName("Should normalize TenantAlias to lowercase and trim spaces")
     void testTenantAliasNormalization() {
         TenantAlias tenantAlias = new TenantAlias("  Valid-Alias123  ");
@@ -67,5 +75,20 @@ public class TenantAliasTest {
         String maxAlias = "a".repeat(50);
         TenantAlias tenantAlias = new TenantAlias(maxAlias);
         assertThat(tenantAlias.value()).isEqualTo(maxAlias);
+    }
+
+    @Test
+    @DisplayName("Should String representation of TenantAlias")
+    void testTenantAliasToString() {
+        TenantAlias tenantAlias = new TenantAlias("valid-alias123");
+        assertThat(tenantAlias.toString()).isEqualTo("valid-alias123");
+    }
+
+    @Test
+    @DisplayName("Should have same hashCode for equal TenantAliases")
+    void testHashCodeConsistency() {
+        TenantAlias alias1 = new TenantAlias("consistent-alias");
+        TenantAlias alias2 = new TenantAlias("consistent-alias");
+        assertThat(alias1.hashCode()).isEqualTo(alias2.hashCode());
     }
 }
