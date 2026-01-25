@@ -29,13 +29,6 @@ public class TenantIdTest {
     }
 
     @Test
-    @DisplayName("Should throw IllegalArgumentException for null TenantId")
-    void testTenantIdIsNull() {
-        assertThatThrownBy(() -> new TenantId(null))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
     @DisplayName("Should consider two TenantIds with different UUIDs as unequal")
     void testTenantIdInequality() {
         TenantId id1 = TenantId.generate();
@@ -43,6 +36,15 @@ public class TenantIdTest {
 
         assertThat(id1).isNotEqualTo(id2);
     }
+
+    @Test
+    @DisplayName("Should throw IllegalArgumentException for null TenantId")
+    void testTenantIdIsNull() {
+        assertThatThrownBy(() -> new TenantId(null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    
 
     @Test
     @DisplayName("Should store and retrieve the correct UUID value")
@@ -67,5 +69,14 @@ public class TenantIdTest {
         TenantId tenantId = new TenantId(id);
 
         assertThat(tenantId.toString()).isEqualTo(id.toString());
+    }
+
+    @Test
+    @DisplayName("Should have same hashCode for equal TenantIds")
+    void testHashCodeConsistency() {
+        UUID id = UUID.randomUUID();
+        TenantId tenantId1 = new TenantId(id);
+        TenantId tenantId2 = new TenantId(id);
+        assertThat(tenantId1.hashCode()).isEqualTo(tenantId2.hashCode());
     }
 }
