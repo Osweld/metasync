@@ -16,6 +16,7 @@ public class Tenant extends AggregateRoot {
     private TenantStatus status;
     private final LocalDateTime createdAt;
 
+
     private Tenant(
             TenantId tenantId,
             TenantAlias tenantAlias,
@@ -53,7 +54,6 @@ public class Tenant extends AggregateRoot {
 
         tenant.registerDomainEvent(
                 TenantProvisioned.now(tenantId, tenantAlias, schemaName, tenantName, plan, initialStatus));
-
         return tenant;
     }
 
