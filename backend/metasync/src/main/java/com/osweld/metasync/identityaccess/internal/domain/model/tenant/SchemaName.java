@@ -1,22 +1,18 @@
 package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
-public final class SchemaName {
+public record SchemaName(String value) {
 
     private static final Pattern VALID_PATTERN = Pattern.compile("^[a-zA-Z_][a-zA-Z0-9_]*$");
 
-    private final String schemaName;
+    public SchemaName {
 
-    public SchemaName(String schemaName) {
-
-        if (schemaName == null) {
+        if (value == null) {
             throw new IllegalArgumentException("Schema name cannot be null");
         }
 
-        String trimmedName = schemaName.trim().toLowerCase();
-
+        String trimmedName = value.trim().toLowerCase();
         if (trimmedName.isEmpty()) {
             throw new IllegalArgumentException("Schema name cannot be blank");
         }
@@ -30,32 +26,12 @@ public final class SchemaName {
                     "Schema name must start with a letter or underscore and can only contain letters, digits, and underscores");
         }
 
-        this.schemaName = trimmedName;
-    }
-
-    public String value() {
-        return schemaName;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(schemaName);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-
-        SchemaName that = (SchemaName) obj;
-        return Objects.equals(this.schemaName, that.schemaName);
+        value = trimmedName;
     }
 
     @Override
     public String toString() {
-        return schemaName;
+        return value;
     }
 
 }
