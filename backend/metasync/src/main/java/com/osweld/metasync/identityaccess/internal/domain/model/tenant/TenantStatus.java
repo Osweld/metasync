@@ -1,38 +1,16 @@
 package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
 
-public final class TenantStatus {
+public record TenantStatus(StatusType value) {
 
-    private final StatusType statusType;
-
-    public TenantStatus(StatusType statusType) {
-        if (statusType == null) {
+    public TenantStatus {
+        if (value == null) {
             throw new IllegalArgumentException("Status type cannot be null");
         }
-        this.statusType = statusType;
-    }
-
-    public StatusType value() {
-        return statusType;
-    }
-
-    @Override
-    public int hashCode() {
-        return statusType.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        TenantStatus that = (TenantStatus) obj;
-        return statusType == that.statusType;
     }
 
     @Override
     public String toString() {
-        return statusType.toString();
+        return value.toString();
     }
 
 }
