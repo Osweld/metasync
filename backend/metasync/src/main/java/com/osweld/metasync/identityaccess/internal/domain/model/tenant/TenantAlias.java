@@ -2,19 +2,17 @@ package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
 
 import java.util.regex.Pattern;
 
-public final class TenantAlias {
+public record TenantAlias(String value) {
 
     private static final Pattern VALID_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-]*$");
 
-    private final String tenantAlias;
+    public TenantAlias {
 
-    public TenantAlias(String tenantAlias) {
-
-        if (tenantAlias == null) {
+        if (value == null) {
             throw new IllegalArgumentException("Tenant alias cannot be null");
         }
 
-        String trimmedAlias = tenantAlias.trim().toLowerCase();
+        String trimmedAlias = value.trim().toLowerCase();
 
         if (trimmedAlias.isEmpty()) {
             throw new IllegalArgumentException("Tenant alias cannot be blank");
@@ -29,31 +27,12 @@ public final class TenantAlias {
                     "Tenant alias must start with a letter and can only contain letters, digits, and hyphens");
         }
 
-        this.tenantAlias = trimmedAlias;
-    }
-
-    public String value() {
-        return tenantAlias;
-    }
-
-    @Override
-    public int hashCode() {
-        return tenantAlias.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        TenantAlias that = (TenantAlias) obj;
-        return tenantAlias.equals(that.tenantAlias);
+        value = trimmedAlias;
     }
 
     @Override
     public String toString() {
-        return tenantAlias;
+        return value;
     }
 
 }
