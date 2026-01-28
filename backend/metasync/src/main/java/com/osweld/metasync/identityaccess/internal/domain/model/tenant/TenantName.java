@@ -2,19 +2,17 @@ package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
 
 import java.util.regex.Pattern;
 
-public final class TenantName {
+public record TenantName (String value) {
 
     private static final Pattern VALID_PATTERN = Pattern.compile("^[\\p{L}0-9\\s.,&'-]+$");
 
-    private final String tenantName;
+    public TenantName {
 
-    public TenantName(String tenantName) {
-
-        if (tenantName == null) {
+        if (value == null) {
             throw new IllegalArgumentException("Tenant name cannot be null");
         }
 
-        String trimmedName = tenantName.trim();
+        String trimmedName = value.trim();
 
         if (trimmedName.isEmpty()) {
             throw new IllegalArgumentException("Tenant name cannot be blank");
@@ -29,31 +27,12 @@ public final class TenantName {
                     "Tenant name contains invalid characters");
         }
 
-        this.tenantName = trimmedName;
-    }
-
-    public String value() {
-        return tenantName;
-    }
-
-    @Override
-    public int hashCode() {
-        return tenantName.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        TenantName that = (TenantName) obj;
-        return tenantName.equals(that.tenantName);
+        value = trimmedName;
     }
 
     @Override
     public String toString() {
-        return tenantName;
+        return value;
     }
 
 }
