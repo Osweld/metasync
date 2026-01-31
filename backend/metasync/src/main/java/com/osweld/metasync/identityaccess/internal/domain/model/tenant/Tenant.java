@@ -31,7 +31,7 @@ public class Tenant extends AggregateRoot {
         this.tenantName = Objects.requireNonNull(tenantName, "tenantName must not be null");
         this.plan = Objects.requireNonNull(plan, "plan must not be null");
         this.status = Objects.requireNonNull(status, "status must not be null");
-        this.createdAt = createdAt;
+        this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
     }
 
     public static Tenant provision(
@@ -81,8 +81,7 @@ public class Tenant extends AggregateRoot {
 
     @Override
     public int hashCode() {
-        int hashCodeValue =+ (151513 * 229) + tenantId.hashCode();
-        return hashCodeValue;
+         return (151513 * 229) + tenantId.hashCode();
     }
 
     @Override
