@@ -19,138 +19,156 @@ import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionServ
 
 public class UserTest {
 
-    private final UserId userId = new UserId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
-    private final TenantId tenantId = new TenantId(UUID.fromString("987e6543-e21b-12d3-a456-426614174999"));
-    private final PersonName userName = new PersonName("John", "Doe");
-    private final EmailAddress userEmail = new EmailAddress("johndoe@example.com");
-    private final UserStatus userStatus = new UserStatus(StatusType.ACTIVE);
-    private final String plainPassword = "SecureP@ssw0rd!";
-    private final EncryptedPassword encryptedPassword = new EncryptedPassword("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-    private final UserRole userRole = new UserRole(Role.MEMBER);
+        private final UserId userId = new UserId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
+        private final TenantId tenantId = new TenantId(UUID.fromString("987e6543-e21b-12d3-a456-426614174999"));
+        private final PersonName userName = new PersonName("John", "Doe");
+        private final EmailAddress userEmail = new EmailAddress("johndoe@example.com");
+        private final UserStatus userStatus = new UserStatus(StatusType.ACTIVE);
+        private final String plainPassword = "SecureP@ssw0rd!";
+        private final EncryptedPassword encryptedPassword = new EncryptedPassword(
+                        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+        private final UserRole userRole = new UserRole(Role.MEMBER);
 
+        @Test
+        @DisplayName("should register admin user successfully")
+        void shouldRegisterAdminUserSuccessfully() {
 
-    @Test
-    @DisplayName("should register admin user successfully")
-    void shouldRegisterAdminUserSuccessfully() {
+                EncryptionService encryptionMockService = mock(EncryptionService.class);
 
-        EncryptionService encryptionMockService = mock(EncryptionService.class);
+                when(encryptionMockService.encryptPassword(plainPassword))
+                                .thenReturn(encryptedPassword);
 
-        when(encryptionMockService.encryptPassword(plainPassword))
-                .thenReturn(encryptedPassword);
+                User user = User.registerAdministrator(userId, tenantId, userName, plainPassword, userEmail,
+                                encryptionMockService);
 
-        User user = User.registerAdministrator(userId, tenantId, userName, plainPassword, userEmail, encryptionMockService);
+                assertThat(user).isNotNull();
 
-        assertThat(user).isNotNull();
+                List<DomainEvent> events = user.pullDomainEvents();
 
-        List<DomainEvent> events = user.pullDomainEvents();
+                assertThat(events).hasSize(1);
+                assertThat(events.get(0)).isInstanceOf(UserAdministratorRegistered.class);
+                UserAdministratorRegistered event = (UserAdministratorRegistered) events.get(0);
 
-        assertThat(events).hasSize(1);
-        assertThat(events.get(0)).isInstanceOf(UserAdministratorRegistered.class);
-        UserAdministratorRegistered event = (UserAdministratorRegistered) events.get(0);
+                assertThat(event.userId()).isEqualTo(userId);
+                assertThat(event.tenantId()).isEqualTo(tenantId);
+                assertThat(event.userName()).isEqualTo(userName);
+                assertThat(event.emailAddress()).isEqualTo(userEmail);
+                assertThat(event.role()).isEqualTo(new UserRole(Role.TENANT_OWNER));
+                assertThat(event.status()).isEqualTo(new UserStatus(StatusType.ACTIVE));
+                assertThat(event.occurredOn()).isNotNull();
 
-        assertThat(event.userId()).isEqualTo(userId);
-        assertThat(event.tenantId()).isEqualTo(tenantId);
-        assertThat(event.userName()).isEqualTo(userName);
-        assertThat(event.emailAddress()).isEqualTo(userEmail);
-        assertThat(event.role()).isEqualTo(new UserRole(Role.TENANT_OWNER));
-        assertThat(event.status()).isEqualTo(new UserStatus(StatusType.ACTIVE));
-        assertThat(event.occurredOn()).isNotNull();
+                verify(encryptionMockService).encryptPassword(plainPassword);
 
-        verify(encryptionMockService).encryptPassword(plainPassword);
+        }
 
-    }
+        @Test
+        @DisplayName("should register user successfully")
+        void shouldRegisterUserSuccessfully() {
 
-    @Test
-    @DisplayName("should register user successfully")
-    void shouldRegisterUserSuccessfully() {
+                EncryptionService encryptionMockService = mock(EncryptionService.class);
 
-        EncryptionService encryptionMockService = mock(EncryptionService.class);
+                when(encryptionMockService.encryptPassword(plainPassword))
+                                .thenReturn(encryptedPassword);
 
-        when(encryptionMockService.encryptPassword(plainPassword))
-                .thenReturn(encryptedPassword);
+                User user = User.registerUser(userId, tenantId, userName, plainPassword, userEmail, userRole,
+                                encryptionMockService);
 
-        User user = User.registerUser(userId, tenantId, userName, plainPassword, userEmail, userRole, encryptionMockService);
+                assertThat(user).isNotNull();
 
-        assertThat(user).isNotNull();
+                List<DomainEvent> events = user.pullDomainEvents();
+                assertThat(events).hasSize(1);
+                assertThat(events.get(0)).isInstanceOf(UserRegistered.class);
+                UserRegistered event = (UserRegistered) events.get(0);
 
-        List<DomainEvent> events = user.pullDomainEvents();
-        assertThat(events).hasSize(1);
-        assertThat(events.get(0)).isInstanceOf(UserRegistered.class);
-        UserRegistered event = (UserRegistered) events.get(0);
+                assertThat(event.userId()).isEqualTo(userId);
+                assertThat(event.tenantId()).isEqualTo(tenantId);
+                assertThat(event.userName()).isEqualTo(userName);
+                assertThat(event.emailAddress()).isEqualTo(userEmail);
+                assertThat(event.role()).isEqualTo(userRole);
+                assertThat(event.status()).isEqualTo(userStatus);
+                assertThat(event.occurredOn()).isNotNull();
 
-        assertThat(event.userId()).isEqualTo(userId);
-        assertThat(event.tenantId()).isEqualTo(tenantId);
-        assertThat(event.userName()).isEqualTo(userName);
-        assertThat(event.emailAddress()).isEqualTo(userEmail);
-        assertThat(event.role()).isEqualTo(userRole);
-        assertThat(event.status()).isEqualTo(userStatus);
-        assertThat(event.occurredOn()).isNotNull();
+                verify(encryptionMockService).encryptPassword(plainPassword);
 
-        verify(encryptionMockService).encryptPassword(plainPassword);
+        }
 
-    }
+        @Test
+        @DisplayName("should reconstitute user successfully")
+        void shouldReconstituteUserSuccessfully() {
+                User user = User.reconstitute(
+                                userId,
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
 
-    @Test
-    @DisplayName("should reconstitute user successfully")
-    void shouldReconstituteUserSuccessfully() {
-        User user = User.reconstitute(
-                userId,
-                tenantId,
-                userName,
-                encryptedPassword,
-                userEmail,
-                userStatus,
-                userRole);
+                assertThat(user).isNotNull();
+                assertThat(user.pullDomainEvents()).isEmpty();
+        }
 
-        assertThat(user).isNotNull();
-        assertThat(user.pullDomainEvents()).isEmpty();
-    }
+        @Test
+        @DisplayName("should verify user has permission")
+        void shouldVerifyUserHasPermission() {
+                User user = User.reconstitute(
+                                userId,
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
 
-    @Test
-    @DisplayName("Should consider two Users with the same identifier as equal")
-    void shouldConsiderTwoUsersWithSameIdentifierAsEqual() {
-        User user1 = User.reconstitute(
-                userId,
-                tenantId,
-                userName,
-                encryptedPassword,
-                userEmail,
-                userStatus,
-                userRole);
+                assertThat(user.hasPermissionTo(Permission.INVENTORY_WRITE)).isTrue();
+                assertThat(user.hasPermissionTo(Permission.INVENTORY_DELETE)).isFalse();
+        }
 
-        User user2 = User.reconstitute(
-                userId,
-                tenantId,
-                userName,
-                encryptedPassword,
-                userEmail,
-                userStatus,
-                userRole);
+        @Test
+        @DisplayName("Should consider two Users with the same identifier as equal")
+        void shouldConsiderTwoUsersWithSameIdentifierAsEqual() {
+                User user1 = User.reconstitute(
+                                userId,
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
 
-        assertThat(user1).isEqualTo(user2);
-    }
+                User user2 = User.reconstitute(
+                                userId,
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
 
-    @Test
-    @DisplayName("Should consider two Users with different identifiers as unequal")
-    void shouldConsiderTwoUsersWithDifferentIdentifiersAsUnequal() {
-        User user1 = User.reconstitute(
-                userId,
-                tenantId,
-                userName,
-                encryptedPassword,
-                userEmail,
-                userStatus,
-                userRole);
+                assertThat(user1).isEqualTo(user2);
+        }
 
-        User user2 = User.reconstitute(
-                new UserId(UUID.fromString("223e4567-e89b-12d3-a456-426614174111")),
-                tenantId,
-                userName,
-                encryptedPassword,
-                userEmail,
-                userStatus,
-                userRole);
+        @Test
+        @DisplayName("Should consider two Users with different identifiers as unequal")
+        void shouldConsiderTwoUsersWithDifferentIdentifiersAsUnequal() {
+                User user1 = User.reconstitute(
+                                userId,
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
 
-        assertThat(user1).isNotEqualTo(user2);
-    }
+                User user2 = User.reconstitute(
+                                new UserId(UUID.fromString("223e4567-e89b-12d3-a456-426614174111")),
+                                tenantId,
+                                userName,
+                                encryptedPassword,
+                                userEmail,
+                                userStatus,
+                                userRole);
+
+                assertThat(user1).isNotEqualTo(user2);
+        }
 }
