@@ -114,6 +114,10 @@ public class User extends AggregateRoot {
         return this.status.equals(new UserStatus(StatusType.ACTIVE));
     }
 
+    public boolean hasPermissionTo(Permission permission) {
+        return this.role.value().grantsPermission(permission);
+    }
+
     @Override
     public int hashCode() {
         return (151513 * 229) + userId.hashCode();
