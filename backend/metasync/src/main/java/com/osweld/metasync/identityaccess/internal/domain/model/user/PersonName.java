@@ -8,6 +8,7 @@ public record PersonName(
 ) {
 
     private static final int MAX_NAME_LENGTH = 100;
+    private static final int MIN_NAME_LENGTH = 1;
     private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z '-]+$");
 
     public PersonName {
@@ -19,6 +20,13 @@ public record PersonName(
         }
         firstName = firstName.trim();
         lastName = lastName.trim();
+
+        if (firstName.length() < MIN_NAME_LENGTH) {
+            throw new IllegalArgumentException("First name must be at least " + MIN_NAME_LENGTH + " character long");
+        }
+        if (lastName.length() < MIN_NAME_LENGTH) {
+            throw new IllegalArgumentException("Last name must be at least " + MIN_NAME_LENGTH + " character long");
+        }
 
         if (firstName.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException("First name cannot be longer than " + MAX_NAME_LENGTH + " characters");
