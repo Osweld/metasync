@@ -19,6 +19,14 @@ public class UserRoleTest {
     }
 
     @Test
+    @DisplayName("Should grant permission based on role")
+    void testGrantsPermission() {
+        UserRole adminRole = new UserRole(ADMIN_ROLE);
+        assertThat(adminRole.grantsPermission(Permission.INVENTORY_WRITE)).isTrue();
+        assertThat(adminRole.grantsPermission(Permission.BILLING_READ)).isFalse();
+    }
+
+    @Test
     @DisplayName("Should consider two UserRoles with the same value as equal")
     void testUserRoleEquality() {
         UserRole userRole1 = new UserRole(ADMIN_ROLE);
