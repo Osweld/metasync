@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserAdministratorRegistered;
+import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserRegistered;
 import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
 
 public class User extends AggregateRoot {
@@ -40,7 +41,7 @@ public class User extends AggregateRoot {
             String plainPassword,
             EmailAddress emailAddress,
             EncryptionService encryptionService) {
-        UserRole administratorRole = new UserRole(Role.ADMIN);
+        UserRole administratorRole = new UserRole(Role.TENANT_OWNER);
         UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
 
         EncryptedPassword encryptedPassword = encryptionService.encryptPassword(plainPassword);
@@ -54,7 +55,6 @@ public class User extends AggregateRoot {
                 initialStatus,
                 administratorRole);
 
-
         user.registerDomainEvent(
                 UserAdministratorRegistered.now(
                         userId,
@@ -63,7 +63,7 @@ public class User extends AggregateRoot {
                         emailAddress,
                         initialStatus,
                         administratorRole));
-                return user;
+        return user;
     }
 
     public static User registerUser(
@@ -78,7 +78,7 @@ public class User extends AggregateRoot {
 
         EncryptedPassword encryptedPassword = encryptionService.encryptPassword(plainPassword);
 
-        return new User(
+        User user = new User(
                 userId,
                 tenantId,
                 userName,
@@ -86,6 +86,10 @@ public class User extends AggregateRoot {
                 emailAddress,
                 initialStatus,
                 role);
+
+        user.registerDomainEvent(UserRegistered.now(userId, tenantId, userName, emailAddress, initialStatus, role));
+
+        return user;
     }
 
     public static User reconstitute(
@@ -112,13 +116,15 @@ public class User extends AggregateRoot {
 
     @Override
     public int hashCode() {
-         return (151513 * 229) + userId.hashCode();
+        return (151513 * 229) + userId.hashCode();
     }
 
-     @Override
+    @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
         User other = (User) obj;
         return this.userId.equals(other.userId);
     }
