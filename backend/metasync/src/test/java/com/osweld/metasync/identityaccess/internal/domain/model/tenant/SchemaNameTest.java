@@ -8,19 +8,21 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class SchemaNameTest {
 
+    private static final String VALID_SCHEMA_NAME = "tenant_schema";
+
     @Test
     @DisplayName("Should create a valid SchemaName")
     void testCreateValidSchemaName() {
-        SchemaName schemaName = new SchemaName("tenant_schema");
+        SchemaName schemaName = new SchemaName(VALID_SCHEMA_NAME);
 
-        assertThat(schemaName.value()).isEqualTo("tenant_schema");
+        assertThat(schemaName.value()).isEqualTo(VALID_SCHEMA_NAME);
     }
 
     @Test
     @DisplayName("Should consider two SchemaNames with the same value as equal")
     void testSchemaNameEquality() {
-        SchemaName schemaName1 = new SchemaName("tenant_schema");
-        SchemaName schemaName2 = new SchemaName("tenant_schema");
+        SchemaName schemaName1 = new SchemaName(VALID_SCHEMA_NAME);
+        SchemaName schemaName2 = new SchemaName(VALID_SCHEMA_NAME);
 
         assertThat(schemaName1).isEqualTo(schemaName2);
     }
