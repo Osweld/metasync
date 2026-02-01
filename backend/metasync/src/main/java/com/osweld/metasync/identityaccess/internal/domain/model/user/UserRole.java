@@ -8,6 +8,10 @@ public record UserRole(Role value) {
         }
     }
 
+    public boolean grantsPermission(Permission permission) {
+        return value.grantsPermission(permission);
+    }
+
     @Override
     public String toString() {
         return value.toString();
