@@ -34,14 +34,14 @@ public class User extends AggregateRoot {
         this.role = Objects.requireNonNull(role, "role must not be null");
     }
 
-    public static User registerAdministrator(
+    public static User registerTenantOwner(
             UserId userId,
             TenantId tenantId,
             PersonName userName,
             String plainPassword,
             EmailAddress emailAddress,
             EncryptionService encryptionService) {
-        UserRole administratorRole = new UserRole(Role.TENANT_OWNER);
+        UserRole tenantOwnerRole = new UserRole(Role.TENANT_OWNER);
         UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
 
         EncryptedPassword encryptedPassword = encryptionService.encryptPassword(plainPassword);
@@ -53,7 +53,7 @@ public class User extends AggregateRoot {
                 encryptedPassword,
                 emailAddress,
                 initialStatus,
-                administratorRole);
+                tenantOwnerRole);
 
         user.registerDomainEvent(
                 UserAdministratorRegistered.now(
@@ -62,7 +62,7 @@ public class User extends AggregateRoot {
                         userName,
                         emailAddress,
                         initialStatus,
-                        administratorRole));
+                        tenantOwnerRole));
         return user;
     }
 
