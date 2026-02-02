@@ -30,15 +30,15 @@ public class UserTest {
         private final UserRole userRole = new UserRole(Role.MEMBER);
 
         @Test
-        @DisplayName("should register admin user successfully")
-        void shouldRegisterAdminUserSuccessfully() {
+        @DisplayName("should register tenant owner successfully")
+        void shouldRegisterTenantOwnerSuccessfully() {
 
                 EncryptionService encryptionMockService = mock(EncryptionService.class);
 
                 when(encryptionMockService.encryptPassword(plainPassword))
                                 .thenReturn(encryptedPassword);
 
-                User user = User.registerAdministrator(userId, tenantId, userName, plainPassword, userEmail,
+                User user = User.registerTenantOwner(userId, tenantId, userName, plainPassword, userEmail,
                                 encryptionMockService);
 
                 assertThat(user).isNotNull();
