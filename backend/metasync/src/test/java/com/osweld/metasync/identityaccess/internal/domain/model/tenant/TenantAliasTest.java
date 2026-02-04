@@ -21,6 +21,15 @@ public class TenantAliasTest {
     }
 
     @Test
+    @DisplayName("Should create TenantAlias derived from TenantName")
+    void testDerivateFromTenantName() {
+        TenantName tenantName = new TenantName("Ténánt Nâme");
+        TenantAlias tenantAlias = TenantAlias.derivateFrom(tenantName);
+
+        assertThat(tenantAlias.value()).isEqualTo("tenant-name");
+    }
+
+    @Test
     @DisplayName("Should consider two TenantAliases with the same value as equal")
     void testTenantAliasEquality() {
         TenantAlias tenantAlias1 = new TenantAlias("valid-alias123");
