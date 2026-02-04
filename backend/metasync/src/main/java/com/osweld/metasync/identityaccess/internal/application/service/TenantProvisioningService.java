@@ -1,0 +1,64 @@
+package com.osweld.metasync.identityaccess.internal.application.service;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
+import com.osweld.metasync.identityaccess.internal.application.usecase.ProvisionTenantUseCase;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantRepository;
+import com.osweld.metasync.identityaccess.internal.domain.model.user.EmailAddress;
+import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
+import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
+import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRepository;
+import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
+import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class TenantProvisioningService implements ProvisionTenantUseCase{
+
+    private final TenantCreator tenantCreator;
+    private final UserRepository userRepository;
+    private final SchemaProvisionerPort schemaProvisionerPort;
+    private final TenantRepository  tenantRepository;
+
+    @Transactional()
+    public void provisionTenant(ProvisionTenantCommand command) {
+
+        TenantName tenantName = new TenantName(command.tenantName());
+        EmailAddress ownerEmail = new EmailAddress(command.ownerEmail());
+        PersonName personName = new PersonName(command.ownerFirstName(), command.ownerLastName());
+        TenantPlan tenantPlan = TenantPlan.fromString(command.planName());
+        
+
+        
+        TenantCreationResult tenantCreationResult = tenantCreator.prepareNewTenant(
+                tenantName,ownerEmail,personName,tenantPlan,command.ownerPassword()
+        );
+
+        Tenant tenant = tenantCreationResult.tenant();
+        User owner = tenantCreationResult.ownerUser();
+
+        tenantRepository.save(tenant);
+
+        schemaProvisionerPort.ensureSchemaExists(tenant.schemaName());
+
+        String previousSchema = AppTenantContext.getCurrentTenant();
+        try {
+            AppTenantContext.setCurrentTenant(tenant.schemaName().value());
+             userRepository.save(owner);
+            
+        } finally {
+            AppTenantContext.setCurrentTenant(previousSchema);
+        }
+
+    }
+
+}
