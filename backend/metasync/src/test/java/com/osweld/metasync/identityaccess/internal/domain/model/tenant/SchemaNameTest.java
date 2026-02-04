@@ -19,6 +19,14 @@ public class SchemaNameTest {
     }
 
     @Test
+    @DisplayName("Should create SchemaName from TenantAlias")
+    void testCreateSchemaNameFromTenantAlias() {
+        TenantAlias tenantAlias = new TenantAlias("tenant-alias");
+        SchemaName schemaName = SchemaName.from(tenantAlias);
+        assertThat(schemaName.value()).isEqualTo("t_tenant_alias");
+    }
+
+    @Test
     @DisplayName("Should consider two SchemaNames with the same value as equal")
     void testSchemaNameEquality() {
         SchemaName schemaName1 = new SchemaName(VALID_SCHEMA_NAME);
