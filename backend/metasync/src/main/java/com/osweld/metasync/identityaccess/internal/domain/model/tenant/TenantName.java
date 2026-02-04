@@ -6,6 +6,8 @@ public record TenantName (String value) {
 
     private static final Pattern VALID_PATTERN = Pattern.compile("^[\\p{L}0-9\\s.,&'-]+$");
 
+    private static final int MAX_LENGTH = 100;
+
     public TenantName {
 
         if (value == null) {
@@ -18,7 +20,7 @@ public record TenantName (String value) {
             throw new IllegalArgumentException("Tenant name cannot be blank");
         }
 
-        if (trimmedName.length() > 100) {
+        if (trimmedName.length() > MAX_LENGTH) {
             throw new IllegalArgumentException("Tenant name cannot be longer than 100 characters");
         }
 
