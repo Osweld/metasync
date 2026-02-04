@@ -79,6 +79,10 @@ public class Tenant extends AggregateRoot {
         return this.status.equals(new TenantStatus(StatusType.ACTIVE));
     }
 
+    public SchemaName schemaName() {
+        return this.schemaName;
+    }
+
     @Override
     public int hashCode() {
          return (151513 * 229) + tenantId.hashCode();
