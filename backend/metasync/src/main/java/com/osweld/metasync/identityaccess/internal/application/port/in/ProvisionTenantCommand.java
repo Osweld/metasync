@@ -18,18 +18,18 @@ public record ProvisionTenantCommand(
     @NotBlank(message = "Admin first name cannot be blank")
     @Pattern(regexp = "^[a-zA-Z '-]+$", message = "Admin first name contains invalid characters")
     @Size(max = 100, message = "Admin first name cannot be longer than 100 characters")
-    String adminFirstName,
+    String ownerFirstName,
     @NotBlank(message = "Admin last name cannot be blank")
     @Pattern(regexp = "^[a-zA-Z '-]+$", message = "Admin last name contains invalid characters")
     @Size(max = 100, message = "Admin last name cannot be longer than 100 characters")
-    String adminLastName,
-    @NotBlank(message = "Admin email cannot be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message = "Admin email must be a valid email address")
-    String adminEmail,
-    @NotBlank(message = "Admin password cannot be blank")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Admin password must be at least 8 characters long and include uppercase, lowercase, number, and special character")
-    @Size(min = 8,max = 25, message = "Admin password must be between 8 and 25 characters long")
-    String adminPassword
+    String ownerLastName,
+    @NotBlank(message = "Owner email cannot be blank")
+    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message = "Owner email must be a valid email address")
+    String ownerEmail,
+    @NotBlank(message = "Owner password cannot be blank")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Owner password must be at least 8 characters long and include uppercase, lowercase, number, and special character")
+    @Size(min = 8,max = 25, message = "Owner password must be between 8 and 25 characters long")
+    String ownerPassword
 ) {
 
     public ProvisionTenantCommand{
