@@ -6,6 +6,10 @@ public record SchemaName(String value) {
 
     private static final Pattern VALID_PATTERN = Pattern.compile("^[a-zA-Z_][a-zA-Z0-9_]*$");
 
+    private static final int MAX_LENGTH = 63;
+
+    private static final String PREFIX = "t_";
+
     public SchemaName {
 
         if (value == null) {
@@ -17,8 +21,8 @@ public record SchemaName(String value) {
             throw new IllegalArgumentException("Schema name cannot be blank");
         }
 
-        if (trimmedName.length() > 63) {
-            throw new IllegalArgumentException("Schema name cannot be longer than 63 characters");
+        if (trimmedName.length() > MAX_LENGTH) {
+            throw new IllegalArgumentException("Schema name cannot be longer than " + MAX_LENGTH + " characters");
         }
 
         if (!VALID_PATTERN.matcher(trimmedName).matches()) {
@@ -27,6 +31,13 @@ public record SchemaName(String value) {
         }
 
         value = trimmedName;
+    }
+
+    public static SchemaName from(TenantAlias alias) {
+        String aliasValue = alias.value();
+        String sqlSafe = aliasValue.replaceAll("-", "_");
+        String fullSchemaName = PREFIX + sqlSafe;
+        return new SchemaName(fullSchemaName);
     }
 
     @Override
