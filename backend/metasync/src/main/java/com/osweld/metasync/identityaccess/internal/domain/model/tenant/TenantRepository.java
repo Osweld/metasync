@@ -7,7 +7,7 @@ public interface TenantRepository {
     TenantId nextIdentity();
     void save(Tenant tenant);
     Optional<Tenant> findById(TenantId tenantId);
-    boolean existsByName(TenantName tenantName);
+    boolean existsByTenantAlias(TenantAlias tenantAlias);
 
     
 }
