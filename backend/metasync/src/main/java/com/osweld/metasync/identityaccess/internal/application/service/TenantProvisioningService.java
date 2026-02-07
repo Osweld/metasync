@@ -48,11 +48,11 @@ public class TenantProvisioningService implements ProvisionTenantUseCase{
 
         tenantRepository.save(tenant);
 
-        schemaProvisionerPort.ensureSchemaExists(tenant.schemaName());
+        schemaProvisionerPort.ensureSchemaExists(tenant.getSchemaName());
 
         String previousSchema = AppTenantContext.getCurrentTenant();
         try {
-            AppTenantContext.setCurrentTenant(tenant.schemaName().value());
+            AppTenantContext.setCurrentTenant(tenant.getSchemaName().value());
              userRepository.save(owner);
             
         } finally {
