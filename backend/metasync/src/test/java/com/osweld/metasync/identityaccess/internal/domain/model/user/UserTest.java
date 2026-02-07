@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +29,8 @@ public class UserTest {
         private final EncryptedPassword encryptedPassword = new EncryptedPassword(
                         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         private final UserRole userRole = new UserRole(Role.MEMBER);
+        private final LocalDateTime now = LocalDateTime.now();
+
 
         @Test
         @DisplayName("should register tenant owner successfully")
@@ -38,7 +41,7 @@ public class UserTest {
                 when(encryptionMockService.encryptPassword(plainPassword))
                                 .thenReturn(encryptedPassword);
 
-                User user = User.registerTenantOwner(userId, tenantId, userName, plainPassword, userEmail,
+                User user = User.registerTenantOwner(userId, tenantId, userName, plainPassword, userEmail, now,
                                 encryptionMockService);
 
                 assertThat(user).isNotNull();
@@ -70,7 +73,7 @@ public class UserTest {
                 when(encryptionMockService.encryptPassword(plainPassword))
                                 .thenReturn(encryptedPassword);
 
-                User user = User.registerUser(userId, tenantId, userName, plainPassword, userEmail, userRole,
+                User user = User.registerUser(userId, tenantId, userName, plainPassword, userEmail, userRole, now,
                                 encryptionMockService);
 
                 assertThat(user).isNotNull();
@@ -102,7 +105,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 assertThat(user).isNotNull();
                 assertThat(user.pullDomainEvents()).isEmpty();
@@ -118,7 +122,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 assertThat(user.hasPermissionTo(Permission.INVENTORY_WRITE)).isTrue();
                 assertThat(user.hasPermissionTo(Permission.INVENTORY_DELETE)).isFalse();
@@ -134,7 +139,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 User user2 = User.reconstitute(
                                 userId,
@@ -143,7 +149,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 assertThat(user1).isEqualTo(user2);
         }
@@ -158,7 +165,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 User user2 = User.reconstitute(
                                 new UserId(UUID.fromString("223e4567-e89b-12d3-a456-426614174111")),
@@ -167,7 +175,8 @@ public class UserTest {
                                 encryptedPassword,
                                 userEmail,
                                 userStatus,
-                                userRole);
+                                userRole,
+                                now);
 
                 assertThat(user1).isNotEqualTo(user2);
         }
