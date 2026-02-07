@@ -1,5 +1,6 @@
 package com.osweld.metasync.identityaccess.internal.domain.model.user;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
@@ -8,6 +9,9 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserA
 import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserRegistered;
 import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
 
+import lombok.Getter;
+
+@Getter
 public class User extends AggregateRoot {
 
     private final UserId userId;
@@ -17,6 +21,7 @@ public class User extends AggregateRoot {
     private EmailAddress emailAddress;
     private UserStatus status;
     private UserRole role;
+    private LocalDateTime createdAt;
 
     private User(
             UserId userId,
@@ -25,13 +30,15 @@ public class User extends AggregateRoot {
             EncryptedPassword encryptedPassword,
             EmailAddress emailAddress,
             UserStatus status,
-            UserRole role) {
+            UserRole role,
+            LocalDateTime createdAt) {
         this.userId = Objects.requireNonNull(userId, "userId must not be null");
         this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
         this.encryptedPassword = Objects.requireNonNull(encryptedPassword, "encryptedPassword must not be null");
         this.emailAddress = Objects.requireNonNull(emailAddress, "emailAddress must not be null");
         this.status = Objects.requireNonNull(status, "status must not be null");
         this.role = Objects.requireNonNull(role, "role must not be null");
+        this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
     }
 
     public static User registerTenantOwner(
@@ -40,6 +47,7 @@ public class User extends AggregateRoot {
             PersonName userName,
             String plainPassword,
             EmailAddress emailAddress,
+            LocalDateTime createdAt,
             EncryptionService encryptionService) {
         UserRole tenantOwnerRole = new UserRole(Role.TENANT_OWNER);
         UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
@@ -53,7 +61,8 @@ public class User extends AggregateRoot {
                 encryptedPassword,
                 emailAddress,
                 initialStatus,
-                tenantOwnerRole);
+                tenantOwnerRole,
+                createdAt);
 
         user.registerDomainEvent(
                 UserAdministratorRegistered.now(
@@ -73,6 +82,7 @@ public class User extends AggregateRoot {
             String plainPassword,
             EmailAddress emailAddress,
             UserRole role,
+            LocalDateTime createdAt,
             EncryptionService encryptionService) {
         UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
 
@@ -85,7 +95,8 @@ public class User extends AggregateRoot {
                 encryptedPassword,
                 emailAddress,
                 initialStatus,
-                role);
+                role,
+                createdAt);
 
         user.registerDomainEvent(UserRegistered.now(userId, tenantId, userName, emailAddress, initialStatus, role));
 
@@ -99,7 +110,8 @@ public class User extends AggregateRoot {
             EncryptedPassword encryptedPassword,
             EmailAddress emailAddress,
             UserStatus status,
-            UserRole role) {
+            UserRole role,
+            LocalDateTime createdAt) {
         return new User(
                 userId,
                 tenantId,
@@ -107,7 +119,8 @@ public class User extends AggregateRoot {
                 encryptedPassword,
                 emailAddress,
                 status,
-                role);
+                role,
+                createdAt);
     }
 
     public boolean isActive() {
