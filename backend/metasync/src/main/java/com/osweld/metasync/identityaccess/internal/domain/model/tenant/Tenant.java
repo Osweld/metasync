@@ -6,6 +6,9 @@ import java.util.Objects;
 import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
 
+import lombok.Getter;
+
+@Getter
 public class Tenant extends AggregateRoot {
 
     private final TenantId tenantId;
@@ -79,9 +82,6 @@ public class Tenant extends AggregateRoot {
         return this.status.equals(new TenantStatus(StatusType.ACTIVE));
     }
 
-    public SchemaName schemaName() {
-        return this.schemaName;
-    }
 
     @Override
     public int hashCode() {
@@ -94,9 +94,6 @@ public class Tenant extends AggregateRoot {
         if (obj == null || getClass() != obj.getClass()) return false;
         Tenant other = (Tenant) obj;
         return this.tenantId.equals(other.tenantId);
-    }
-
-
-    
+    } 
 
 }
