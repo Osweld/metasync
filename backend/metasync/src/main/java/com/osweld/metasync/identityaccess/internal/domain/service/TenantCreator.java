@@ -2,6 +2,7 @@ package com.osweld.metasync.identityaccess.internal.domain.service;
 
 import java.time.LocalDateTime;
 
+import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.exception.TenantNameAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
@@ -33,22 +34,29 @@ public class TenantCreator {
             TenantPlan tenantPlan,
             String ownerPassword) {
 
-        if (tenantRepository.existsByName(tenantName)) {
-            throw new TenantNameAlreadyExistsException("Tenant name already exists");
-        }
-
         if (userRepository.existsByEmail(ownerEmail)) {
-            throw new TenantNameAlreadyExistsException("Owner email already exists");
+            throw new EmailAlreadyExistsException("Email address already in use: " + ownerEmail.value());
         }
 
-        TenantAlias tenantAlias = TenantAlias.derivateFrom(tenantName);
-        SchemaName schemaName = SchemaName.from(tenantAlias);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        TenantAlias baseAlias = TenantAlias.derivateFrom(tenantName);
+        TenantAlias finalAlias = baseAlias;
+
+        int counter = 1;
+        while (tenantRepository.existsByTenantAlias(finalAlias)) {
+            finalAlias = TenantAlias.incrementCounter(baseAlias, counter);
+            counter++;
+        }
+
+        SchemaName schemaName = SchemaName.from(finalAlias);
 
         TenantId tenantId = tenantRepository.nextIdentity();
         UserId ownerUserId = userRepository.nextIdentity();
 
-        Tenant tenant = Tenant.provision(tenantId, tenantAlias, schemaName, tenantName,
-                tenantPlan, LocalDateTime.now());
+        Tenant tenant = Tenant.provision(tenantId, finalAlias, schemaName, tenantName,
+                tenantPlan, now);
 
         User ownerUser = User.registerTenantOwner(
                 ownerUserId,
@@ -56,6 +64,7 @@ public class TenantCreator {
                 personName,
                 ownerPassword,
                 ownerEmail,
+                now,
                 encryptionService
         );
 
