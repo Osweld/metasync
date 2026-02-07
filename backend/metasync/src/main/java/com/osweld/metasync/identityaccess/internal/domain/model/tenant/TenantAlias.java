@@ -38,8 +38,29 @@ public record TenantAlias(String value) {
         String normalized = Normalizer.normalize(lowerCase, Normalizer.Form.NFD);
         String noAccents = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         String sanitized = noAccents.replaceAll("[^a-z0-9]", "-");
-        String clean = sanitized.replaceAll("-+","-").replaceAll("^-|-$", "");
+        String clean = sanitized.replaceAll("-+", "-").replaceAll("^-|-$", "");
+
+        if (clean.isEmpty()) {
+            throw new IllegalArgumentException("El nombre del tenant no puede generar un alias válido.");
+        }
+
+        int maxLength = MAX_LENGTH - 5;
+        if (clean.length() > maxLength) {
+            clean = clean.substring(0, maxLength);
+            clean = clean.replaceAll("-+$", "");
+        }
+
         return new TenantAlias(clean);
+    }
+
+    public static TenantAlias incrementCounter(TenantAlias baseAlias, int counter) {
+        String newValue = baseAlias.value() + "-" + counter;
+        if (newValue.length() > MAX_LENGTH) {
+            int maxBaseLength = MAX_LENGTH - String.valueOf(counter).length() - 1;
+            String truncatedBase = baseAlias.value().substring(0, Math.min(baseAlias.value().length(), maxBaseLength));
+            newValue = truncatedBase + "-" + counter;
+        }
+        return new TenantAlias(newValue);
     }
 
     @Override
