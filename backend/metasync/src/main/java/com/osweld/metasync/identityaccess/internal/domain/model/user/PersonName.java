@@ -47,6 +47,14 @@ public record PersonName(
         return firstName + " " + lastName;
     }
 
+    public String firstName() {
+        return firstName;
+    }
+
+    public String lastName() {
+        return lastName;
+    }
+
     @Override
     public String toString() {
         return firstName + " " + lastName;
