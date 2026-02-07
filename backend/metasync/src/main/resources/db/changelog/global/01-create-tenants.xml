@@ -11,7 +11,7 @@
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="tenant_name" type="VARCHAR(100)">
-                <constraints nullable="false" unique="true" />
+                <constraints nullable="false"/>
             </column>
             <column name="tenant_alias" type="VARCHAR(50)">
                 <constraints nullable="false" unique="true" />
