@@ -29,7 +29,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase{
     private final SchemaProvisionerPort schemaProvisionerPort;
     private final TenantRepository  tenantRepository;
 
-    @Transactional()
+    @Transactional
     public void provisionTenant(ProvisionTenantCommand command) {
 
         TenantName tenantName = new TenantName(command.tenantName());
