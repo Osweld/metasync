@@ -3,7 +3,6 @@ package com.osweld.metasync.identityaccess.internal.domain.service;
 import java.time.LocalDateTime;
 
 import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
-import com.osweld.metasync.identityaccess.internal.domain.exception.TenantNameAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
