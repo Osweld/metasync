@@ -32,8 +32,23 @@ public record ProvisionTenantCommand(
     String ownerPassword
 ) {
 
-    public ProvisionTenantCommand{
+    public ProvisionTenantCommand(
+        String tenantName,
+        String planName,
+        String ownerFirstName,
+        String ownerLastName,
+        String ownerEmail,
+        String ownerPassword
+    ) {
+        this.tenantName = tenantName;
+        this.planName = planName;
+        this.ownerFirstName = ownerFirstName;
+        this.ownerLastName = ownerLastName;
+        this.ownerEmail = ownerEmail;
+        this.ownerPassword = ownerPassword;
+
         Validator.validate(this);
     }
-
+    
 }
+
