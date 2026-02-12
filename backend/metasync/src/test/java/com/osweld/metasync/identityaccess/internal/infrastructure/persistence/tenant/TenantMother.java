@@ -1,0 +1,45 @@
+package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.StatusType;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantStatus;
+
+public class TenantMother {
+
+    public static Tenant Random() {
+        return createTenant("Test Corp Tenant" + UUID.randomUUID().toString().substring(0, 5));
+    }
+
+    public static Tenant createTenant(String name) {
+        TenantId tenantId = TenantId.generate();
+        TenantName tenantName = new TenantName(name);
+        TenantAlias tenantAlias = TenantAlias.derivateFrom(tenantName);
+        SchemaName schemaName = SchemaName.from(tenantAlias);
+        TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
+        TenantStatus tenantStatus = new TenantStatus(StatusType.ACTIVE);
+
+        return Tenant.reconstitute(tenantId, tenantAlias, schemaName, tenantName, tenantPlan, tenantStatus,
+                LocalDateTime.now());
+    }
+
+    public static Tenant createWithAlias(String alias) {
+        TenantId tenantId = TenantId.generate();
+        TenantName tenantName = new TenantName("Test Corp Tenant " + alias);
+        TenantAlias tenantAlias = new TenantAlias(alias);
+        SchemaName schemaName = SchemaName.from(tenantAlias);
+        TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
+        TenantStatus tenantStatus = new TenantStatus(StatusType.ACTIVE);
+
+        return Tenant.reconstitute(tenantId, tenantAlias, schemaName, tenantName, tenantPlan, tenantStatus,
+                LocalDateTime.now());
+    }
+}
