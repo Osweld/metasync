@@ -34,6 +34,7 @@ public class User extends AggregateRoot {
             LocalDateTime createdAt) {
         this.userId = Objects.requireNonNull(userId, "userId must not be null");
         this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
+        this.userName = Objects.requireNonNull(userName, "userName must not be null");
         this.encryptedPassword = Objects.requireNonNull(encryptedPassword, "encryptedPassword must not be null");
         this.emailAddress = Objects.requireNonNull(emailAddress, "emailAddress must not be null");
         this.status = Objects.requireNonNull(status, "status must not be null");
