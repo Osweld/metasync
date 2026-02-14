@@ -1,6 +1,3 @@
 databaseChangeLog:
-  - preConditions:
-      - runningAs:
-          username: ${POSTGRES_USER}
   - include:
       file: db/changelog/global/01-create-tenants.xml
