@@ -34,7 +34,7 @@ public class UserJpaEntity {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-    @Column(name = "encrypted_password", nullable = false, length = 255)
+    @Column(name = "password_hash", nullable = false, length = 255)
     private String encryptedPassword;
     @Column(name = "email", nullable = false, length = 100)
     private String email;
