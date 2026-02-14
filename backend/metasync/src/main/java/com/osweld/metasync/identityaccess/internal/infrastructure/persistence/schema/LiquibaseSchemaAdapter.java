@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LiquibaseSchemaAdapter implements SchemaProvisionerPort{
 
-    private final static String CREATE_SCHEMA_TEMPLATE = "CREATE SCHEMA IF NOT EXISTS %s";
+    private final static String CREATE_SCHEMA_TEMPLATE = "CREATE SCHEMA IF NOT EXISTS \"%s\"";
     private final static String LIQUIBASE_CHANGELOG_PATH = "db/changelog/tenants/db.changelog-master.yaml";
 
     private final DataSource dataSource;
@@ -53,12 +53,16 @@ public class LiquibaseSchemaAdapter implements SchemaProvisionerPort{
        }
     }
 
-    private void runLiquibaseMigrations(Connection connection, String schemaNamee) throws Exception {
+    private void runLiquibaseMigrations(Connection connection, String schemaName) throws Exception {
         Database database = DatabaseFactory.getInstance()
         .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
-        database.setDefaultSchemaName(schemaNamee);
-        database.setLiquibaseSchemaName(schemaNamee);
+        database.setDefaultSchemaName(schemaName);
+        database.setLiquibaseSchemaName(schemaName);
+
+        try(Statement stmt = connection.createStatement()){
+            stmt.execute(String.format("SET search_path TO \"%s\", public", schemaName));
+        }
 
         try(Liquibase liquibase = new Liquibase(
             LIQUIBASE_CHANGELOG_PATH,
