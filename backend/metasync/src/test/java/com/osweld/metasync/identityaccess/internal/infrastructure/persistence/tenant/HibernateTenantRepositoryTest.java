@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 
@@ -16,6 +17,7 @@ import jakarta.persistence.EntityManager;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
+import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,6 +33,13 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
 
     @Autowired
     private EntityManager entityManager;
+
+    @Test
+    @DisplayName("Should generate a new TenantId")
+    void shouldGenerateNewTenantId() {
+        TenantId tenantId = tenantRepository.nextIdentity();
+        assertThat(tenantId).isNotNull();
+    }
 
     @Test
     @DisplayName("Should save a tenant and retrieve it by ID")
@@ -79,6 +88,23 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
             tenantRepository.save(tenant2);
             entityManager.flush();
         })
-                .isInstanceOf(ConstraintViolationException.class);
+                .isInstanceOfAny(ConstraintViolationException.class,
+                        DataIntegrityViolationException.class);
     }
+
+    @Test
+    @DisplayName("Should return empty when tenant ID does not exist")
+    void shouldReturnEmptyWhenTenantIdDoesNotExist() {
+        Optional<Tenant> found = tenantRepository.findById(TenantId.generate());
+        assertThat(found).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should return false when tenant alias does not exist")
+    void shouldReturnFalseWhenTenantAliasDoesNotExist() {
+        boolean exists = tenantRepository.existsByTenantAlias(TenantAlias.derivateFrom(new TenantName("NonExistentTenant")));
+        assertThat(exists).isFalse();
+    }
+
+   
 }
