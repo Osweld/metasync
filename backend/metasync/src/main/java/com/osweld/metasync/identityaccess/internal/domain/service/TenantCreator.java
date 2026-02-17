@@ -2,6 +2,8 @@ package com.osweld.metasync.identityaccess.internal.domain.service;
 
 import java.time.LocalDateTime;
 
+import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
+import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
 import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
@@ -10,12 +12,10 @@ import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCre
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantRepository;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

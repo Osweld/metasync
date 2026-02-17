@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

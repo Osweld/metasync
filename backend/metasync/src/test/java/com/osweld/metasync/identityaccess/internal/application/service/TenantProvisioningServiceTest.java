@@ -22,12 +22,12 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
 import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
+import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
+import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantRepository;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRepository;
 import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 

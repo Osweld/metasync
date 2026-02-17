@@ -3,8 +3,8 @@ package com.osweld.metasync.identityaccess.internal.infrastructure.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantRepository;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRepository;
+import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
+import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
 import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
 import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
 import com.osweld.metasync.identityaccess.internal.infrastructure.security.FakeEncryptionService;
