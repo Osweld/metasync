@@ -1,9 +1,12 @@
 package com.osweld.metasync.identityaccess.internal.infrastructure.security;
 
 
+import org.springframework.context.annotation.Profile;
+
 import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPassword;
 import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
 
+@Profile("dev")
 public class FakeEncryptionService implements EncryptionService {
 
     private final static String ENCRYPTION_PREFIX = "encrypted-encrypted-encrypted-encrypted-encrypted-encrypted-";
