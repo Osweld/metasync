@@ -35,6 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
         TenantMapper.class })
 public class HibernateUserRepositoryTest extends AbstractIntegrationTest {
 
+    private final static String SQL_CHECK_TABLE_EXISTS = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = ? AND table_name = 'users'";
+
     @Autowired
     private HibernateUserRepository userRepository;
 
@@ -67,7 +69,7 @@ public class HibernateUserRepositoryTest extends AbstractIntegrationTest {
         schemaProvisioner.ensureSchemaExists(tenant.getSchemaName());
 
         Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = ? AND table_name = 'users'",
+                SQL_CHECK_TABLE_EXISTS,
                 Integer.class,
                 tenant.getSchemaName().value());
         assertThat(count).isEqualTo(1);
