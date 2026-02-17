@@ -5,5 +5,6 @@ import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaNam
 public interface SchemaProvisionerPort {
 
     void ensureSchemaExists(SchemaName schemaName);
+    void dropSchema(SchemaName schemaName);
 
 }
