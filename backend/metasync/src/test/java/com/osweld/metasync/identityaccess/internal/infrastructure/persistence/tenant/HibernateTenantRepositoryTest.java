@@ -67,6 +67,16 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
     }
 
     @Test
+    @DisplayName("Should delete a tenant and ensure it cannot be found")
+    void shouldDeleteAndEnsureNotFound() {
+        Tenant tenant = TenantMother.Random();
+        tenantRepository.save(tenant);
+        tenantRepository.deleteById(tenant.getTenantId());
+        Optional<Tenant> found = tenantRepository.findById(tenant.getTenantId());
+        assertThat(found).isEmpty();
+    }
+
+    @Test
     @DisplayName("Should return false if tenant alias does not exist")
     void shouldReturnFalseIfTenantAliasDoesNotExist() {
         boolean exists = tenantRepository
