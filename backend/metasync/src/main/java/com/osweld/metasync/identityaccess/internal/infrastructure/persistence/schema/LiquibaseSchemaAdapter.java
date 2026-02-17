@@ -22,20 +22,20 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class LiquibaseSchemaAdapter implements SchemaProvisionerPort{
+public class LiquibaseSchemaAdapter implements SchemaProvisionerPort {
 
     private final static String CREATE_SCHEMA_TEMPLATE = "CREATE SCHEMA IF NOT EXISTS \"%s\"";
     private final static String LIQUIBASE_CHANGELOG_PATH = "db/changelog/tenants/db.changelog-master.yaml";
+    private final static String DROP_SCHEMA_TEMPLATE = "DROP SCHEMA IF EXISTS \"%s\" CASCADE";
 
     private final DataSource dataSource;
 
     @Override
     public void ensureSchemaExists(SchemaName schemaName) {
 
-
         String schema = schemaName.value();
 
-        try(Connection connection = dataSource.getConnection()){
+        try (Connection connection = dataSource.getConnection()) {
 
             createPhysicalSchema(connection, schema);
             runLiquibaseMigrations(connection, schema);
@@ -48,30 +48,43 @@ public class LiquibaseSchemaAdapter implements SchemaProvisionerPort{
     }
 
     private void createPhysicalSchema(Connection connection, String schemaName) throws SQLException {
-       try(Statement stmt = connection.createStatement()){
-        stmt.execute(String.format(CREATE_SCHEMA_TEMPLATE, schemaName));
-       }
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(String.format(CREATE_SCHEMA_TEMPLATE, schemaName));
+        }
     }
 
     private void runLiquibaseMigrations(Connection connection, String schemaName) throws Exception {
         Database database = DatabaseFactory.getInstance()
-        .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+                .findCorrectDatabaseImplementation(new JdbcConnection(connection));
 
         database.setDefaultSchemaName(schemaName);
         database.setLiquibaseSchemaName(schemaName);
 
-        try(Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
             stmt.execute(String.format("SET search_path TO \"%s\", public", schemaName));
         }
 
-        try(Liquibase liquibase = new Liquibase(
-            LIQUIBASE_CHANGELOG_PATH,
-            new ClassLoaderResourceAccessor(),
-            database
-        )) {
-            liquibase.update(new Contexts(),new LabelExpression());
+        try (Liquibase liquibase = new Liquibase(
+                LIQUIBASE_CHANGELOG_PATH,
+                new ClassLoaderResourceAccessor(),
+                database)) {
+            liquibase.update(new Contexts(), new LabelExpression());
         }
-       
+
+    }
+
+    @Override
+    public void dropSchema(SchemaName schemaName) {
+        String schema = schemaName.value();
+
+        try (
+                Connection connection = dataSource.getConnection();
+                Statement stmt = connection.createStatement();) {
+            stmt.execute(String.format(DROP_SCHEMA_TEMPLATE, schema));
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to drop schema: " + schema, e);
+        }
+
     }
 
 }
