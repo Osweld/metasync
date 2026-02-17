@@ -7,6 +7,8 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
 import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
@@ -40,6 +44,8 @@ public class TenantProvisioningServiceTest {
     SchemaProvisionerPort schemaProvisionerPort;
     @Mock
     TenantRepository tenantRepository;
+    @Mock
+    TransactionTemplate transactionTemplate;
 
     @InjectMocks
     TenantProvisioningService tenantProvisioningService;
@@ -64,6 +70,12 @@ public class TenantProvisioningServiceTest {
 
         when(tenantCreator.prepareNewTenant(
                 any(), any(), any(), any(), any())).thenReturn(new TenantCreationResult(dummyTenant, dummyOwner));
+
+        doAnswer(invocation -> {
+            Consumer<TransactionStatus> callback = invocation.getArgument(0);
+            callback.accept(null);
+            return null;
+        }).when(transactionTemplate).executeWithoutResult(any());
 
         doAnswer(invocation -> {
             assertEquals("t_test_tenant", AppTenantContext.getCurrentTenant());
