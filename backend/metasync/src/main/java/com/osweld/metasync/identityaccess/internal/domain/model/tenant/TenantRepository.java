@@ -8,6 +8,7 @@ public interface TenantRepository {
     void save(Tenant tenant);
     Optional<Tenant> findById(TenantId tenantId);
     boolean existsByTenantAlias(TenantAlias tenantAlias);
+    void deleteById(TenantId tenantId);
 
     
 }
