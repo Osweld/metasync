@@ -40,6 +40,11 @@ public class HibernateTenantRepository implements TenantRepository {
         return tenantJpaRepository.existsByTenantAlias(tenantAlias.value());
     }
 
+    @Override
+    public void deleteById(TenantId tenantId) {
+        tenantJpaRepository.deleteById(tenantId.value());
+    }
+
     
 
 }
