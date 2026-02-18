@@ -32,7 +32,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
     private final TenantRepository tenantRepository;
     private final TransactionTemplate transactionTemplate;
 
-    public void provisionTenant(ProvisionTenantCommand command) {
+    public Tenant provisionTenant(ProvisionTenantCommand command) {
 
         TenantName tenantName = new TenantName(command.tenantName());
         EmailAddress ownerEmail = new EmailAddress(command.ownerEmail());
@@ -45,9 +45,8 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
         Tenant tenant = tenantCreationResult.tenant();
         User owner = tenantCreationResult.ownerUser();
 
-        transactionTemplate.executeWithoutResult(status -> {
-            tenantRepository.save(tenant);
-
+        Tenant savedTenant = transactionTemplate.execute(status -> {
+                 return tenantRepository.save(tenant);
         });
 
         try {
@@ -69,6 +68,8 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
             handleCompensation(tenant);
             throw new RuntimeException("Failed to provision tenant: " + tenantName.value(), e);
         }
+
+        return savedTenant;
     }
 
     private void handleCompensation(Tenant tenant) {
@@ -87,5 +88,6 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
             log.error("CRITICAL: Failed to drop schema during compensation for tenant: " + tenant.getTenantId().value(), e);
         }
     }
+    
 
 }
