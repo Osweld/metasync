@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.function.Consumer;
 
+import org.apache.tomcat.util.http.parser.TE;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
@@ -78,11 +80,17 @@ public class TenantProvisioningServiceTest {
         }).when(transactionTemplate).executeWithoutResult(any());
 
         doAnswer(invocation -> {
+            TransactionCallback<Void> callback = invocation.getArgument(0);
+            callback.doInTransaction(mock(TransactionStatus.class));
+            return null;
+        }).when(transactionTemplate).execute(any());
+        
+        doAnswer(invocation -> {
             assertEquals("t_test_tenant", AppTenantContext.getCurrentTenant());
             return null;
         }).when(userRepository).save(any());
 
-        tenantProvisioningService.provisionTenant(command);
+       tenantProvisioningService.provisionTenant(command);
 
         InOrder inOrder = Mockito.inOrder(tenantRepository, schemaProvisionerPort, userRepository);
         inOrder.verify(tenantRepository).save(dummyTenant);
