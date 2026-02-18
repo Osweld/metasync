@@ -9,7 +9,7 @@ import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 public interface TenantRepository {
 
     TenantId nextIdentity();
-    void save(Tenant tenant);
+    Tenant save(Tenant tenant);
     Optional<Tenant> findById(TenantId tenantId);
     boolean existsByTenantAlias(TenantAlias tenantAlias);
     void deleteById(TenantId tenantId);
