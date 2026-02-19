@@ -2,6 +2,7 @@ package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.t
 
 import org.springframework.stereotype.Component;
 
+import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
@@ -19,6 +20,7 @@ public class TenantMapper {
                 tenant.getTenantName().value(),
                 tenant.getTenantAlias().value(),
                 tenant.getSchemaName().value(),
+                tenant.getContactEmail().value(),
                 tenant.getStatus().value(),
                 tenant.getPlan().value(),
                 tenant.getCreatedAt());
@@ -30,6 +32,7 @@ public class TenantMapper {
                 new TenantAlias(entity.getTenantAlias()),
                 new SchemaName(entity.getSchemaName()),
                 new TenantName(entity.getTenantName()),
+                new EmailAddress(entity.getContactEmail()),
                 new TenantPlan(entity.getPlan()),
                 new TenantStatus(entity.getStatus()),
                 entity.getCreatedAt());
