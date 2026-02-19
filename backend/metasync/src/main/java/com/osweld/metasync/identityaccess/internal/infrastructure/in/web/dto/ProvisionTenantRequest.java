@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.application.port.in.web.dto;
+package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
