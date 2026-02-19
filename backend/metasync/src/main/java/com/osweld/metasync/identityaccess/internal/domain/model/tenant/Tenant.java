@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
+import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
 
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class Tenant extends AggregateRoot {
     private final TenantAlias tenantAlias;
     private final SchemaName schemaName;
     private TenantName tenantName;
+    private EmailAddress contactEmail;
     private TenantPlan plan;
     private TenantStatus status;
     private final LocalDateTime createdAt;
@@ -25,6 +27,7 @@ public class Tenant extends AggregateRoot {
             TenantAlias tenantAlias,
             SchemaName schemaName,
             TenantName tenantName,
+            EmailAddress contactEmail,
             TenantPlan plan,
             TenantStatus status,
             LocalDateTime createdAt) {
@@ -32,6 +35,7 @@ public class Tenant extends AggregateRoot {
         this.tenantAlias = Objects.requireNonNull(tenantAlias, "tenantAlias must not be null");
         this.schemaName = Objects.requireNonNull(schemaName, "schemaName must not be null");
         this.tenantName = Objects.requireNonNull(tenantName, "tenantName must not be null");
+        this.contactEmail = Objects.requireNonNull(contactEmail, "contactEmail must not be null");
         this.plan = Objects.requireNonNull(plan, "plan must not be null");
         this.status = Objects.requireNonNull(status, "status must not be null");
         this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
@@ -42,6 +46,7 @@ public class Tenant extends AggregateRoot {
             TenantAlias tenantAlias,
             SchemaName schemaName,
             TenantName tenantName,
+            EmailAddress contactEmail,
             TenantPlan plan,
             LocalDateTime createdAt) {
         TenantStatus initialStatus = new TenantStatus(StatusType.ACTIVE);
@@ -51,6 +56,7 @@ public class Tenant extends AggregateRoot {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 plan,
                 initialStatus,
                 createdAt);
@@ -65,6 +71,7 @@ public class Tenant extends AggregateRoot {
             TenantAlias tenantAlias,
             SchemaName schemaName,
             TenantName tenantName,
+            EmailAddress contactEmail,
             TenantPlan plan,
             TenantStatus status,
             LocalDateTime createdAt) {
@@ -73,6 +80,7 @@ public class Tenant extends AggregateRoot {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 plan,
                 status,
                 createdAt);
