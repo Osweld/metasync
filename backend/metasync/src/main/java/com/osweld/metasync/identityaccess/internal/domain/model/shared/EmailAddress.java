@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.internal.domain.model.shared;
 
 import java.util.regex.Pattern;
 

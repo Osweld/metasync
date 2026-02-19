@@ -8,11 +8,11 @@ import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaPr
 import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
 import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
 import com.osweld.metasync.identityaccess.internal.application.usecase.ProvisionTenantUseCase;
+import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
 import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
