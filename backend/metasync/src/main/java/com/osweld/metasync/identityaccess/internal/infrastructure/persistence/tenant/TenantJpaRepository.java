@@ -9,6 +9,8 @@ public interface TenantJpaRepository extends JpaRepository<TenantJpaEntity, UUID
 
     boolean existsByTenantAlias(String tenantAlias);
 
+    boolean existsByContactEmail(String contactEmail);
+
     
 
 }
