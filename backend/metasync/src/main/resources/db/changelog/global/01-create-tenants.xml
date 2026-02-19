@@ -19,6 +19,9 @@
             <column name="schema_name" type="VARCHAR(63)">
                 <constraints nullable="false" unique="true" />
             </column>
+             <column name="contact_email" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
             <column name="status" type="VARCHAR(20)">
                 <constraints nullable="false" />
             </column>
