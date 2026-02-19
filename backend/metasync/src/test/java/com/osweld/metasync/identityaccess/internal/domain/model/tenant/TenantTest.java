@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.DomainEvent;
+import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,6 +20,7 @@ public class TenantTest {
     private final TenantAlias tenantAlias = new TenantAlias("acme-corp");
     private final SchemaName schemaName = new SchemaName("schema_acme");
     private final TenantName tenantName = new TenantName("Acme Corp");
+    private final EmailAddress contactEmail = new EmailAddress("contact@acme-corp.com");
     private final TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
     private final LocalDateTime now = LocalDateTime.now();
 
@@ -30,6 +32,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 now);
 
@@ -61,6 +64,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 status,
                 now);
@@ -78,6 +82,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 now))
                 .isInstanceOf(NullPointerException.class)
@@ -92,6 +97,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 new TenantStatus(StatusType.ACTIVE),
                 now);
@@ -101,6 +107,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 new TenantStatus(StatusType.ACTIVE),
                 now);
@@ -119,6 +126,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 new TenantStatus(StatusType.ACTIVE),
                 now);
@@ -128,6 +136,7 @@ public class TenantTest {
                 tenantAlias,
                 schemaName,
                 tenantName,
+                contactEmail,
                 tenantPlan,
                 new TenantStatus(StatusType.ACTIVE),
                 now);
