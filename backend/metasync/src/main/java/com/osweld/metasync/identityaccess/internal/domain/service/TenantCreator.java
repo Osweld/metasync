@@ -33,9 +33,9 @@ public class TenantCreator {
             TenantPlan tenantPlan,
             String ownerPassword) {
 
-        if (userRepository.existsByEmail(ownerEmail)) {
-            throw new EmailAlreadyExistsException("Email address already in use: " + ownerEmail.value());
-        }
+            if (tenantRepository.existsByContactEmail(ownerEmail.value())) {
+                throw new EmailAlreadyExistsException("A tenant with the provided contact email already exists.");
+            }
 
 
         LocalDateTime now = LocalDateTime.now();
