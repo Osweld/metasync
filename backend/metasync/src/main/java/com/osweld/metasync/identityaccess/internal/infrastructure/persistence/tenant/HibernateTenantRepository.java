@@ -41,9 +41,16 @@ public class HibernateTenantRepository implements TenantRepository {
     }
 
     @Override
+    public boolean existsByContactEmail(String contactEmail) {
+        return tenantJpaRepository.existsByContactEmail(contactEmail);
+    }
+
+    @Override
     public void deleteById(TenantId tenantId) {
         tenantJpaRepository.deleteById(tenantId.value());
     }
+
+
 
     
 
