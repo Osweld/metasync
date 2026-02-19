@@ -10,8 +10,6 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-
 public class EmailAddressTest {
 
     private static final String VALID_EMAIL = "test@example.com";
