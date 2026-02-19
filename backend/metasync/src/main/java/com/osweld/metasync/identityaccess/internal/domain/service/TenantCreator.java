@@ -55,7 +55,7 @@ public class TenantCreator {
         UserId ownerUserId = userRepository.nextIdentity();
 
         Tenant tenant = Tenant.provision(tenantId, finalAlias, schemaName, tenantName,
-                tenantPlan, now);
+                ownerEmail, tenantPlan, now);
 
         User ownerUser = User.registerTenantOwner(
                 ownerUserId,
