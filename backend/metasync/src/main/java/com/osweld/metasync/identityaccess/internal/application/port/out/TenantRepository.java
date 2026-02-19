@@ -12,6 +12,7 @@ public interface TenantRepository {
     Tenant save(Tenant tenant);
     Optional<Tenant> findById(TenantId tenantId);
     boolean existsByTenantAlias(TenantAlias tenantAlias);
+    boolean existsByContactEmail(String contactEmail);
     void deleteById(TenantId tenantId);
 
     
