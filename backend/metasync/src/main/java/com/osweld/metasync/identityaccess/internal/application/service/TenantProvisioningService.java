@@ -1,6 +1,8 @@
 package com.osweld.metasync.identityaccess.internal.application.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
@@ -32,6 +34,8 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
     private final TenantRepository tenantRepository;
     private final TransactionTemplate transactionTemplate;
 
+    @Override
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public Tenant provisionTenant(ProvisionTenantCommand command) {
 
         TenantName tenantName = new TenantName(command.tenantName());
@@ -46,27 +50,28 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
         User owner = tenantCreationResult.ownerUser();
 
         Tenant savedTenant = transactionTemplate.execute(status -> {
-                 return tenantRepository.save(tenant);
+            return tenantRepository.save(tenant);
         });
 
+        String previousSchema = AppTenantContext.getCurrentTenant();
+
         try {
+
+            AppTenantContext.setCurrentTenant(tenant.getSchemaName().value());
             schemaProvisionerPort.ensureSchemaExists(tenant.getSchemaName());
 
-            String previousSchema = AppTenantContext.getCurrentTenant();
             try {
-                AppTenantContext.setCurrentTenant(tenant.getSchemaName().value());
 
                 transactionTemplate.executeWithoutResult(status -> {
                     userRepository.save(owner);
                 });
 
-            } finally {
-                AppTenantContext.setCurrentTenant(previousSchema);
+            } catch (Exception e) {
+                handleCompensation(tenant);
+                throw new RuntimeException("Failed to provision tenant: " + tenantName.value(), e);
             }
-
-        } catch (Exception e) {
-            handleCompensation(tenant);
-            throw new RuntimeException("Failed to provision tenant: " + tenantName.value(), e);
+        } finally {
+            AppTenantContext.setCurrentTenant(previousSchema);
         }
 
         return savedTenant;
@@ -79,15 +84,17 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
                 tenantRepository.deleteById(tenant.getTenantId());
             });
         } catch (Exception e) {
-            log.error("CRITICAL: Failed to delete tenant during compensation for tenant: " + tenant.getTenantId().value(), e);
+            log.error(
+                    "CRITICAL: Failed to delete tenant during compensation for tenant: " + tenant.getTenantId().value(),
+                    e);
         }
 
         try {
             schemaProvisionerPort.dropSchema(tenant.getSchemaName());
         } catch (Exception e) {
-            log.error("CRITICAL: Failed to drop schema during compensation for tenant: " + tenant.getTenantId().value(), e);
+            log.error("CRITICAL: Failed to drop schema during compensation for tenant: " + tenant.getTenantId().value(),
+                    e);
         }
     }
-    
 
 }
