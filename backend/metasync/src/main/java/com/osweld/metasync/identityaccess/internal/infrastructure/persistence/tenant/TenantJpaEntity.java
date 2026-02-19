@@ -34,6 +34,8 @@ public class TenantJpaEntity {
     private String tenantAlias;
     @Column(name = "schema_name", nullable = false, unique = true, length = 63)
     private String schemaName;
+    @Column(name = "contact_email", nullable = false, unique = true, length = 100)
+    private String contactEmail;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private StatusType status;
