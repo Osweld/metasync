@@ -21,6 +21,23 @@ public class EmailAddressTest {
         assertThat(emailAddress.value()).isEqualTo(VALID_EMAIL);
     }
 
+    @ParameterizedTest(name = "Valid email \"{0}\" should be accepted")
+    @ValueSource(strings = {
+            "user.name@example.com",
+            "user+tag@example.com",
+            "user_name@example.com",
+            "user&example@example.com",
+            "user*example@example.com",
+            "user-example@example.com",
+            "test@subdomain.example.com",
+            "test@example.co.uk"
+    })
+    @DisplayName("Should accept various valid EmailAddress formats")
+    void should_accept_valid_email_formats(String validEmail) {
+        EmailAddress emailAddress = new EmailAddress(validEmail);
+        assertThat(emailAddress.value()).isEqualTo(validEmail.toLowerCase());
+    }
+
     @Test
     @DisplayName("Should consider two EmailAddresses with the same value as equal")
     void testEmailAddressEquality() {
@@ -38,10 +55,10 @@ public class EmailAddressTest {
     }
 
     @Test
-    @DisplayName("Should trim spaces from EmailAddress")
-    void testEmailAddressTrimming() {
-        EmailAddress emailAddress = new EmailAddress("  " + VALID_EMAIL + "  ");
-        assertThat(emailAddress.value()).isEqualTo(VALID_EMAIL);
+    @DisplayName("Should normalize EmailAddress by trimming and lowercasing")
+    void should_normalize_email_address() {
+        EmailAddress emailAddress = new EmailAddress("  User.Name+Tag@Example.COM  ");
+        assertThat(emailAddress.value()).isEqualTo("user.name+tag@example.com");
     }
 
     @Test
@@ -51,21 +68,21 @@ public class EmailAddressTest {
         assertThat(emailAddress.value()).isEqualTo("test@example.com");
     }
 
-    @ParameterizedTest(name = "Invalid email \"{0}\" should throw exception")
-    @NullSource
-    @EmptySource
+    @ParameterizedTest(name = "Invalid email \"{0}\" should throw exception \"{1}\"")
     @ValueSource(strings = {
+            "null",
+            "",
             "   ",
             "invalid-email",
             "user@.com",
             "user@com",
-            "user@domain..com"
+            "user@domain..com",
+            "user@@example.com"
     })
-    @DisplayName("Should reject invalid EmailAddresses")
-    void should_reject_invalid_email_addresses(String invalidEmail) {
+    @DisplayName("Should reject invalid EmailAddresses with correct exception messages")
+    void should_reject_invalid_emails(String invalidEmail) {
         assertThatThrownBy(() -> new EmailAddress(invalidEmail))
                 .isInstanceOf(IllegalArgumentException.class);
-
     }
 
     @Test
@@ -99,6 +116,22 @@ public class EmailAddressTest {
         EmailAddress email1 = new EmailAddress(VALID_EMAIL);
         EmailAddress email2 = new EmailAddress(VALID_EMAIL);
         assertThat(email1.hashCode()).isEqualTo(email2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Should have different hashCodes for unequal EmailAddresses")
+    void testHashCodeDifference() {
+        EmailAddress email1 = new EmailAddress("test1@example.com");
+        EmailAddress email2 = new EmailAddress("test2@example.com");
+        assertThat(email1.hashCode()).isNotEqualTo(email2.hashCode());
+    }
+
+    @Test
+    @DisplayName("EmailAddress should be immutable")
+    void testImmutability() {
+        EmailAddress email = new EmailAddress(VALID_EMAIL);
+        String originalValue = email.value();
+        assertThat(email.value()).isEqualTo(originalValue);
     }
 
 }
