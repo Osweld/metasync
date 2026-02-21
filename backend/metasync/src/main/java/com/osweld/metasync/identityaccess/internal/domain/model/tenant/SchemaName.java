@@ -17,12 +17,17 @@ public record SchemaName(String value) {
         }
 
         String trimmedName = value.trim().toLowerCase();
+
         if (trimmedName.isEmpty()) {
             throw new IllegalArgumentException("Schema name cannot be blank");
         }
 
         if (trimmedName.length() > MAX_LENGTH) {
             throw new IllegalArgumentException("Schema name cannot be longer than " + MAX_LENGTH + " characters");
+        }
+
+        if (!trimmedName.startsWith(PREFIX)) {
+            throw new IllegalArgumentException("Schema name must start with reserved prefix '" + PREFIX + "'");
         }
 
         if (!VALID_PATTERN.matcher(trimmedName).matches()) {
