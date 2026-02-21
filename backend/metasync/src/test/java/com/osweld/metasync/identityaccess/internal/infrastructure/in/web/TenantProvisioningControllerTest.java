@@ -98,5 +98,22 @@ public class TenantProvisioningControllerTest {
     }
 
 
+    @Test
+    @DisplayName("Should return 400 Bad Request when request is invalid")
+    void shouldReturnBadRequestForInvalidRequest() throws Exception {
+        ProvisionTenantRequest invalidRequest = new ProvisionTenantRequest(
+                "",
+                "FREE",
+                "John",
+                "Doe",
+                contactEmail.value(),
+                "pasSword123$");
+
+        mockMvc.perform(post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidRequest)))
+                .andExpect(status().isBadRequest());
+    }
+
 }
 
