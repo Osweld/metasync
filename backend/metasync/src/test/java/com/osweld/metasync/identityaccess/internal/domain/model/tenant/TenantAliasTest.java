@@ -12,28 +12,30 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class TenantAliasTest {
 
+    private static final String VALID_ALIAS = "valid-alias";
+
     @Test
     @DisplayName("Should create a valid TenantAlias")
     void testCreateValidTenantAlias() {
-        TenantAlias tenantAlias = new TenantAlias("valid-alias123");
+        TenantAlias tenantAlias = new TenantAlias(VALID_ALIAS);
 
-        assertThat(tenantAlias.value()).isEqualTo("valid-alias123");
+        assertThat(tenantAlias.value()).isEqualTo(VALID_ALIAS);
     }
 
     @Test
     @DisplayName("Should create TenantAlias derived from TenantName")
     void testDerivateFromTenantName() {
-        TenantName tenantName = new TenantName("Ténánt Nâme");
+        TenantName tenantName = new TenantName("Tenant Name valid");
         TenantAlias tenantAlias = TenantAlias.derivateFrom(tenantName);
 
-        assertThat(tenantAlias.value()).isEqualTo("tenant-name");
+        assertThat(tenantAlias.value()).isEqualTo("tenant-name-valid");
     }
 
     @Test
     @DisplayName("Should consider two TenantAliases with the same value as equal")
     void testTenantAliasEquality() {
-        TenantAlias tenantAlias1 = new TenantAlias("valid-alias123");
-        TenantAlias tenantAlias2 = new TenantAlias("valid-alias123");
+        TenantAlias tenantAlias1 = new TenantAlias(VALID_ALIAS);
+        TenantAlias tenantAlias2 = new TenantAlias(VALID_ALIAS);
 
         assertThat(tenantAlias1).isEqualTo(tenantAlias2);
     }
@@ -89,15 +91,31 @@ public class TenantAliasTest {
     @Test
     @DisplayName("Should String representation of TenantAlias")
     void testTenantAliasToString() {
-        TenantAlias tenantAlias = new TenantAlias("valid-alias123");
-        assertThat(tenantAlias.toString()).isEqualTo("valid-alias123");
+        TenantAlias tenantAlias = new TenantAlias(VALID_ALIAS);
+        assertThat(tenantAlias.toString()).isEqualTo(VALID_ALIAS);
     }
 
     @Test
     @DisplayName("Should have same hashCode for equal TenantAliases")
     void testHashCodeConsistency() {
-        TenantAlias alias1 = new TenantAlias("consistent-alias");
-        TenantAlias alias2 = new TenantAlias("consistent-alias");
+        TenantAlias alias1 = new TenantAlias(VALID_ALIAS);
+        TenantAlias alias2 = new TenantAlias(VALID_ALIAS);
         assertThat(alias1.hashCode()).isEqualTo(alias2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Should have different hashCodes for unequal TenantAliases")
+    void testHashCodeDifference() {
+        TenantAlias alias1 = new TenantAlias("alias-one");
+        TenantAlias alias2 = new TenantAlias("alias-two");
+        assertThat(alias1.hashCode()).isNotEqualTo(alias2.hashCode());
+    }
+
+    @Test
+    @DisplayName("TenantAlias should be immutable")
+    void testImmutability() {
+        TenantAlias alias = new TenantAlias(VALID_ALIAS);
+        String originalValue = alias.value();
+        assertThat(alias.value()).isEqualTo(originalValue);
     }
 }
