@@ -18,7 +18,7 @@ public class TenantTest {
 
     private final TenantId tenantId = new TenantId(UUID.randomUUID());
     private final TenantAlias tenantAlias = new TenantAlias("acme-corp");
-    private final SchemaName schemaName = new SchemaName("t_acme-corp");
+    private final SchemaName schemaName = new SchemaName("t_acme_corp");
     private final TenantName tenantName = new TenantName("Acme Corp");
     private final EmailAddress contactEmail = new EmailAddress("contact@acme-corp.com");
     private final TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
