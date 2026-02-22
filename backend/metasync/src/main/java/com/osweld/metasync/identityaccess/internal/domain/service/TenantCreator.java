@@ -22,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TenantCreator {
 
+    private static final String EMAIL_ALREADY_EXISTS_MESSAGE = "email %s is already in use";
+
     private final EncryptionService encryptionService;
     private final TenantRepository tenantRepository;
     private final UserRepository userRepository;
@@ -34,7 +36,7 @@ public class TenantCreator {
             String ownerPassword) {
 
         if (tenantRepository.existsByContactEmail(ownerEmail.value())) {
-            throw new EmailAlreadyExistsException("email " + ownerEmail.value() + " is already in use");
+            throw new EmailAlreadyExistsException(String.format(EMAIL_ALREADY_EXISTS_MESSAGE, ownerEmail.value()));
         }
 
         LocalDateTime now = LocalDateTime.now();
