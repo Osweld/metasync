@@ -15,14 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl<String>{
+public class MultiTenantConnectionProviderImpl
+        extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl<String> {
 
     private final DataSource dataSource;
 
-
     @Override
     protected DataSource selectAnyDataSource() {
-       return dataSource;
+        return dataSource;
     }
 
     @Override
@@ -32,35 +32,34 @@ public class MultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMu
 
     @Override
     public Connection getConnection(String tenantIdentifier) throws SQLException {
-      
-        String tenandId =  (tenantIdentifier != null) ? tenantIdentifier : AppTenantContext.DEFAULT_TENANT_ID;
-        log.debug("Getting connection for tenant: {}", tenandId);
+
+        String schemaName = (tenantIdentifier != null) ? tenantIdentifier : AppTenantContext.DEFAULT_TENANT_ID;
+        log.info("getConnection tenantIdentifier={}, search_path schema={}", tenantIdentifier, schemaName);
 
         Connection connection = getAnyConnection();
-        try(Statement stmt = connection.createStatement()){
-           
-            stmt.execute("SET search_path TO " + tenandId);
-        }catch(SQLException e){
-            log.error("Error setting search_path to tenant: {}", tenandId, e);
+        try (Statement stmt = connection.createStatement()) {
+
+            stmt.execute(String.format("SET search_path TO \"%s\", public", schemaName));
+
+        } catch (SQLException e) {
+            log.error("Error setting search_path to tenant: {}", schemaName, e);
             throw e;
         }
+
+        log.info("Getting connection for tenant: {}", schemaName);
 
         return connection;
     }
 
     @Override
     public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
-        try(Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
             stmt.execute("SET search_path TO " + AppTenantContext.DEFAULT_TENANT_ID);
-        }catch(SQLException e){
-           log.warn("Could not reset search_path to public: {}", e.getMessage());
-        }finally{
+        } catch (SQLException e) {
+            log.warn("Could not reset search_path to public: {}", e.getMessage());
+        } finally {
             releaseAnyConnection(connection);
         }
     }
-
-    
-
-    
 
 }
