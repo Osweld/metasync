@@ -21,14 +21,14 @@ import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepo
 import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPassword;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
+import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
+import com.osweld.metasync.shared.domain.model.vo.TenantName;
 
 @ExtendWith(MockitoExtension.class)
 public class TenantCreatorTest {

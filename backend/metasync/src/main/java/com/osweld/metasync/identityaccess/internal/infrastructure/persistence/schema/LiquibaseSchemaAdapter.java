@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Component;
 
 import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
+import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 
 import liquibase.Contexts;
 import liquibase.LabelExpression;

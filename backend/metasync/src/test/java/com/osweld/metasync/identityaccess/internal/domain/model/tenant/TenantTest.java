@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import com.osweld.metasync.identityaccess.internal.domain.model.DomainEvent;
 import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
+import com.osweld.metasync.shared.domain.model.vo.SchemaName;
+import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
+import com.osweld.metasync.shared.domain.model.vo.TenantName;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

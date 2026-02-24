@@ -11,14 +11,14 @@ import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabas
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
+import com.osweld.metasync.shared.domain.model.vo.TenantName;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 
 import jakarta.persistence.EntityManager;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
