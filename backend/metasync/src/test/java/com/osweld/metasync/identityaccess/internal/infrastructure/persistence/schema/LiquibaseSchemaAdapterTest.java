@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
+import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 
 @SpringBootTest

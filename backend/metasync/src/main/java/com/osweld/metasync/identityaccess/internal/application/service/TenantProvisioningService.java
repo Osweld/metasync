@@ -13,11 +13,11 @@ import com.osweld.metasync.identityaccess.internal.application.usecase.Provision
 import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
 import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
+import com.osweld.metasync.shared.domain.model.vo.TenantName;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 
 import lombok.RequiredArgsConstructor;

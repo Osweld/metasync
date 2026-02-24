@@ -25,11 +25,11 @@ import com.osweld.metasync.identityaccess.internal.application.port.in.Provision
 import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
 import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
 import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.SchemaName;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantCreationResult;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
 import com.osweld.metasync.identityaccess.internal.domain.service.TenantCreator;
+import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 
 import jakarta.validation.ConstraintViolationException;

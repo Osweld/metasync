@@ -3,8 +3,8 @@ package com.osweld.metasync.identityaccess.internal.application.port.out;
 import java.util.Optional;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantAlias;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 
 public interface TenantRepository {
 
