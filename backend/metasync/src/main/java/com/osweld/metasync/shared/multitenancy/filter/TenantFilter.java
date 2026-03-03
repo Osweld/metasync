@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
+import com.osweld.metasync.shared.infrastructure.security.SecurityAllowlist;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 
 import org.springframework.core.Ordered;
@@ -33,14 +34,20 @@ public class TenantFilter implements Filter {
         String tenantId = req.getHeader(TENANT_ID_HEADER);
 
         try {
+
+            if (SecurityAllowlist.isAllowlisted(req.getRequestURI())) {
+                log.debug("Request URI {} is allowlisted, skipping tenant resolution", req.getRequestURI());
+                AppTenantContext.setCurrentTenant(AppTenantContext.DEFAULT_TENANT_ID);
+                chain.doFilter(request, response);
+                return;
+            }
+
             if (tenantId == null || tenantId.isEmpty()) {
                 log.error("Missing required tenant ID header: {}", TENANT_ID_HEADER);
-                AppTenantContext.clear();
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST,
                         "Missing required header: " + TENANT_ID_HEADER);
                 return;
             }
-
             try {
                 TenantAlias tenantAlias = new TenantAlias(tenantId);
                 SchemaName schemaName = SchemaName.from(tenantAlias);
@@ -49,7 +56,6 @@ public class TenantFilter implements Filter {
                 chain.doFilter(request, response);
             } catch (IllegalArgumentException e) {
                 log.error("Invalid or malformed tenant ID: {}", tenantId);
-                AppTenantContext.clear();
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_BAD_REQUEST,
                         "Invalid tenant ID format");
                 return;
