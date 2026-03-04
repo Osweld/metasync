@@ -36,7 +36,7 @@ import com.osweld.metasync.shared.domain.model.vo.TenantName;
 @WebMvcTest(controllers =  TenantProvisioningController.class)
 public class TenantProvisioningControllerTest {
 
-    private final static String BASE_URL = "/api/v1/tenants";
+    private final static String BASE_URL = "/api/v1/tenants/register";
     private final static String PROVISION_SUCCESS_MESSAGE = "Tenant provisioned successfully";
 
     private final TenantId tenantId = new TenantId(UUID.randomUUID());

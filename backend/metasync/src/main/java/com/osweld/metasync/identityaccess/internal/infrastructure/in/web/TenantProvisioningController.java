@@ -28,7 +28,7 @@ public class TenantProvisioningController {
 
     private final ProvisionTenantUseCase provisionTenantUseCase;
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<ProvisionTenantResponse> provisionTenant(@RequestBody @Valid ProvisionTenantRequest request) {
 
         ProvisionTenantCommand command = new ProvisionTenantCommand(
