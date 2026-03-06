@@ -52,7 +52,7 @@ public class Tenant extends AggregateRoot {
             EmailAddress contactEmail,
             TenantPlan plan,
             LocalDateTime createdAt) {
-        TenantStatus initialStatus = new TenantStatus(StatusType.ACTIVE);
+        TenantStatus initialStatus = new TenantStatus(StatusType.PENDING);
 
         Tenant tenant = new Tenant(
                 tenantId,
@@ -89,8 +89,15 @@ public class Tenant extends AggregateRoot {
                 createdAt);
     }
 
-    public boolean isActive() {
-        return this.status.equals(new TenantStatus(StatusType.ACTIVE));
+   
+
+
+
+    public void activate() {
+        if(this.status.value() != StatusType.PENDING) {
+            throw new IllegalStateException("Only tenants in PENDING status can be activated.");
+        }
+        this.status = new TenantStatus(StatusType.ACTIVE);
     }
 
 

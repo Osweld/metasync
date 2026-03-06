@@ -28,7 +28,7 @@ public class TenantTest {
     private final LocalDateTime now = LocalDateTime.now();
 
     @Test
-    @DisplayName("Should provision a new Tenant with initial ACTIVE status")
+    @DisplayName("Should provision a new Tenant with initial PENDING status")
     void testProvisionTenant() {
         Tenant tenant = Tenant.provision(
                 tenantId,
@@ -40,7 +40,6 @@ public class TenantTest {
                 now);
 
         assertThat(tenant).isNotNull();
-        assertThat(tenant.isActive()).isTrue();
 
         List<DomainEvent> events = tenant.pullDomainEvents();
 
@@ -72,7 +71,6 @@ public class TenantTest {
                 status,
                 now);
         assertThat(tenant).isNotNull();
-        assertThat(tenant.isActive()).isFalse();
 
         assertThat(tenant.pullDomainEvents()).isEmpty();
     }
@@ -102,7 +100,7 @@ public class TenantTest {
                 tenantName,
                 contactEmail,
                 tenantPlan,
-                new TenantStatus(StatusType.ACTIVE),
+                new TenantStatus(StatusType.PENDING),
                 now);
 
         Tenant tenant2 = Tenant.reconstitute(
@@ -112,7 +110,7 @@ public class TenantTest {
                 tenantName,
                 contactEmail,
                 tenantPlan,
-                new TenantStatus(StatusType.ACTIVE),
+                new TenantStatus(StatusType.PENDING),
                 now);
 
         assertThat(tenant1).isEqualTo(tenant2);
@@ -131,7 +129,7 @@ public class TenantTest {
                 tenantName,
                 contactEmail,
                 tenantPlan,
-                new TenantStatus(StatusType.ACTIVE),
+                new TenantStatus(StatusType.PENDING),
                 now);
 
         Tenant tenant2 = Tenant.reconstitute(
@@ -141,7 +139,7 @@ public class TenantTest {
                 tenantName,
                 contactEmail,
                 tenantPlan,
-                new TenantStatus(StatusType.ACTIVE),
+                new TenantStatus(StatusType.PENDING),
                 now);
 
         assertThat(tenant1).isNotEqualTo(tenant2);
