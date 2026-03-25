@@ -4,6 +4,6 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPa
 
 public interface EncryptionService {
     EncryptedPassword encryptPassword(String plainPassword);
-    String decryptPassword(EncryptedPassword encryptedPassword);
+    boolean verifyPassword(String plainPassword, EncryptedPassword encryptedPassword);
 
 }
