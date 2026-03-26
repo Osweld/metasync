@@ -25,7 +25,7 @@ public class UserTest {
         private final TenantId tenantId = new TenantId(UUID.fromString("987e6543-e21b-12d3-a456-426614174999"));
         private final PersonName userName = new PersonName("John", "Doe");
         private final EmailAddress userEmail = new EmailAddress("johndoe@example.com");
-        private final UserStatus userStatus = new UserStatus(StatusType.ACTIVE);
+        private final UserStatus userStatus = new UserStatus(StatusType.PENDING);
         private final String plainPassword = "SecureP@ssw0rd!";
         private final EncryptedPassword encryptedPassword = new EncryptedPassword(
                         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
@@ -58,7 +58,7 @@ public class UserTest {
                 assertThat(event.userName()).isEqualTo(userName);
                 assertThat(event.emailAddress()).isEqualTo(userEmail);
                 assertThat(event.role()).isEqualTo(new UserRole(Role.TENANT_OWNER));
-                assertThat(event.status()).isEqualTo(new UserStatus(StatusType.ACTIVE));
+                assertThat(event.status()).isEqualTo(new UserStatus(StatusType.PENDING));
                 assertThat(event.occurredOn()).isNotNull();
 
                 verify(encryptionMockService).encryptPassword(plainPassword);

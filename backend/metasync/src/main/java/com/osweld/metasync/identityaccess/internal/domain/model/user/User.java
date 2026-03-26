@@ -52,7 +52,7 @@ public class User extends AggregateRoot {
             LocalDateTime createdAt,
             EncryptionService encryptionService) {
         UserRole tenantOwnerRole = new UserRole(Role.TENANT_OWNER);
-        UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
+        UserStatus initialStatus = new UserStatus(StatusType.PENDING);
 
         EncryptedPassword encryptedPassword = encryptionService.encryptPassword(plainPassword);
 
@@ -86,7 +86,7 @@ public class User extends AggregateRoot {
             UserRole role,
             LocalDateTime createdAt,
             EncryptionService encryptionService) {
-        UserStatus initialStatus = new UserStatus(StatusType.ACTIVE);
+        UserStatus initialStatus = new UserStatus(StatusType.PENDING);
 
         EncryptedPassword encryptedPassword = encryptionService.encryptPassword(plainPassword);
 
