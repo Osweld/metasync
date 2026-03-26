@@ -14,16 +14,15 @@ import com.osweld.metasync.shared.domain.model.vo.TenantName;
 @Component
 public class TenantMapper {
 
-    public TenantJpaEntity toJpaEntity(Tenant tenant) {
-        return new TenantJpaEntity(
-                tenant.getTenantId().value(),
-                tenant.getTenantName().value(),
-                tenant.getTenantAlias().value(),
-                tenant.getSchemaName().value(),
-                tenant.getContactEmail().value(),
-                tenant.getStatus().value(),
-                tenant.getPlan().value(),
-                tenant.getCreatedAt());
+     public void updateJpaEntity(TenantJpaEntity entity,Tenant tenant) {
+        entity.setTenantId(tenant.getTenantId().value());
+        entity.setTenantAlias(tenant.getTenantAlias().value());
+        entity.setSchemaName(tenant.getSchemaName().value());
+        entity.setTenantName(tenant.getTenantName().value());
+        entity.setContactEmail(tenant.getContactEmail().value());
+        entity.setPlan(tenant.getPlan().value());
+        entity.setStatus(tenant.getStatus().value());
+        entity.setCreatedAt(tenant.getCreatedAt());
     }
 
     public Tenant toDomainModel(TenantJpaEntity entity) {

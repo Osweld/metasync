@@ -25,7 +25,14 @@ public class HibernateTenantRepository implements TenantRepository {
 
     @Override
     public Tenant save(Tenant tenant) {
-        TenantJpaEntity entity = tenantMapper.toJpaEntity(tenant);
+
+        TenantJpaEntity entity = tenantJpaRepository.findById(tenant.getTenantId().value())
+                .orElseGet(() -> {
+                    TenantJpaEntity newEntity = new TenantJpaEntity();
+                    tenantMapper.updateJpaEntity(newEntity, tenant);
+                    return newEntity;
+                });
+
         return tenantMapper.toDomainModel(tenantJpaRepository.save(entity));
     }
 
