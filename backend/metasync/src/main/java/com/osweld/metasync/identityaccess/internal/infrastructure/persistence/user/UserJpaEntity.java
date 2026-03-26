@@ -12,6 +12,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,5 +47,8 @@ public class UserJpaEntity {
     private Role role;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+    @Version
+    @Column(name = "version", nullable = false)
+    private Integer version;
 
 }
