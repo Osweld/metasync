@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/tenants/01-create-users.xml
+  - include:
+      file: db/changelog/tenants/02-add-version-to-users.xml
