@@ -22,9 +22,15 @@ public class HibernateUserRepository implements UserRepository {
         return UserId.generate();
     }
     @Override
-    public void save(User user) {
-        UserJpaEntity entity = userMapper.toJpaEntity(user);
-        userJpaRepository.save(entity);
+    public User save(User user) {
+        UserJpaEntity entity = userJpaRepository.findById(user.getUserId().value())
+                .orElseGet(() -> {
+                    UserJpaEntity newEntity = new UserJpaEntity();
+                    userMapper.updateJpaEntity(newEntity, user);
+                    return newEntity;
+                });
+
+        return userMapper.toDomainModel(userJpaRepository.save(entity));
     }
     @Override
     public Optional<User> findById(UserId userId) {

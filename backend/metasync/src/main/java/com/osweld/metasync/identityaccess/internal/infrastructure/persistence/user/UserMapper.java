@@ -13,19 +13,16 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.UserStatus;
 
 @Component
 public class UserMapper {
-
-    public UserJpaEntity toJpaEntity(User user) {
-        return new UserJpaEntity(
-                user.getUserId().value(),
-                user.getTenantId().value(),
-                user.getUserName().firstName(),
-                user.getUserName().lastName(),
-                user.getEncryptedPassword().value(),
-                user.getEmailAddress().value(),
-                user.getStatus().value(),
-                user.getRole().value(),
-                user.getCreatedAt()
-        );
+    public void updateJpaEntity(UserJpaEntity entity, User user) {
+        entity.setUserId(user.getUserId().value());
+        entity.setTenantId(user.getTenantId().value());
+        entity.setFirstName(user.getUserName().firstName());
+        entity.setLastName(user.getUserName().lastName());
+        entity.setEncryptedPassword(user.getEncryptedPassword().value());
+        entity.setEmail(user.getEmailAddress().value());
+        entity.setStatus(user.getStatus().value());
+        entity.setRole(user.getRole().value());
+        entity.setCreatedAt(user.getCreatedAt());
     }
 
     public User toDomainModel(UserJpaEntity entity) {
