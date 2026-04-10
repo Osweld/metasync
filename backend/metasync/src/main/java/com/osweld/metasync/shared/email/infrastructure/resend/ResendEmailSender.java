@@ -25,11 +25,11 @@ public class ResendEmailSender implements EmailSender {
     @Override
     public void send(EmailMessage message) {
         log.info("Attempting to send email to {} with template: {}", 
-                 message.recipient(), message.templateName());
+                 message.recipient(), message.emailType().getTemplateURI());
         
         try {
             String htmlContent = templateEngine.render(
-                    message.templateName(), 
+                    message.emailType().getTemplateURI(), 
                     message.templateModel());
 
             CreateEmailOptions params = CreateEmailOptions.builder()
@@ -47,7 +47,7 @@ public class ResendEmailSender implements EmailSender {
         } catch (Exception e) {
             log.error("Error sending email to {} with template {}: {}", 
                       message.recipient(), 
-                      message.templateName(), 
+                      message.emailType().getTemplateURI(), 
                       e.getMessage(), 
                       e);
             throw new RuntimeException("Error sending email", e);
