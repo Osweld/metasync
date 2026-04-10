@@ -93,16 +93,13 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
                 tenantRepository.deleteById(tenant.getTenantId());
             });
         } catch (Exception e) {
-            log.error(
-                    "CRITICAL: Failed to delete tenant during compensation for tenant: " + tenant.getTenantId().value(),
-                    e);
+            log.error("CRITICAL: Failed to delete tenant during compensation for tenant: {}", tenant.getTenantId().value(), e);
         }
 
         try {
             schemaProvisionerPort.dropSchema(tenant.getSchemaName());
         } catch (Exception e) {
-            log.error("CRITICAL: Failed to drop schema during compensation for tenant: " + tenant.getTenantId().value(),
-                    e);
+            log.error("CRITICAL: Failed to drop schema during compensation for tenant: {}", tenant.getTenantId().value(), e);
         }
     }
 
