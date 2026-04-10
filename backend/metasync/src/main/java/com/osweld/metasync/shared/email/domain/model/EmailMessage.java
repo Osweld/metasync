@@ -5,7 +5,7 @@ import java.util.Map;
 public record EmailMessage(
     String recipient,
     String subject,
-    String templateName,
+    EmailType emailType,
     Map<String, Object> templateModel
 ) {
 
