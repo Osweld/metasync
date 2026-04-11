@@ -1,6 +1,7 @@
-package com.osweld.metasync.shared.infrastructure.web.exception;
+package com.osweld.metasync.shared.exception;
 
 
+import com.osweld.metasync.shared.exception.dto.ErrorResponse;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import com.osweld.metasync.shared.infrastructure.web.exception.dto.ErrorResponse;
 
 import lombok.extern.slf4j.Slf4j;
 

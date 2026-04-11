@@ -1,4 +1,4 @@
-package com.osweld.metasync.shared.infrastructure.web.exception.dto;
+package com.osweld.metasync.shared.exception.dto;
 
 import java.time.LocalDateTime;
 import java.util.Map;

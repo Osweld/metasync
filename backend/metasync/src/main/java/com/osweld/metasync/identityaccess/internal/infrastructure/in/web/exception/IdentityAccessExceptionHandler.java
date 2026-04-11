@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
 import com.osweld.metasync.identityaccess.internal.domain.exception.IdentityAccessDomainException;
-import com.osweld.metasync.shared.infrastructure.web.exception.dto.ErrorResponse;
+import com.osweld.metasync.shared.exception.dto.ErrorResponse;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
