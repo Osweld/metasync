@@ -91,7 +91,6 @@ public class HibernateUserRepositoryTest extends AbstractIntegrationTest {
 
                 assertThat(retrievedUser).isPresent();
                 assertThat(retrievedUser.get().getUserId()).isEqualTo(user.getUserId());
-                assertThat(retrievedUser.get().getTenantId()).isEqualTo(tenant.getTenantId());
                 return null;
             });
 

@@ -22,7 +22,6 @@ import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionServ
 public class UserTest {
 
         private final UserId userId = new UserId(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"));
-        private final TenantId tenantId = new TenantId(UUID.fromString("987e6543-e21b-12d3-a456-426614174999"));
         private final PersonName userName = new PersonName("John", "Doe");
         private final EmailAddress userEmail = new EmailAddress("johndoe@example.com");
         private final UserStatus userStatus = new UserStatus(StatusType.PENDING);
@@ -42,7 +41,7 @@ public class UserTest {
                 when(encryptionMockService.encryptPassword(plainPassword))
                                 .thenReturn(encryptedPassword);
 
-                User user = User.registerTenantOwner(userId, tenantId, userName, plainPassword, userEmail, now,
+                User user = User.registerTenantOwner(userId, userName, plainPassword, userEmail, now,
                                 encryptionMockService);
 
                 assertThat(user).isNotNull();
@@ -54,7 +53,6 @@ public class UserTest {
                 UserAdministratorRegistered event = (UserAdministratorRegistered) events.get(0);
 
                 assertThat(event.userId()).isEqualTo(userId);
-                assertThat(event.tenantId()).isEqualTo(tenantId);
                 assertThat(event.userName()).isEqualTo(userName);
                 assertThat(event.emailAddress()).isEqualTo(userEmail);
                 assertThat(event.role()).isEqualTo(new UserRole(Role.TENANT_OWNER));
@@ -74,7 +72,7 @@ public class UserTest {
                 when(encryptionMockService.encryptPassword(plainPassword))
                                 .thenReturn(encryptedPassword);
 
-                User user = User.registerUser(userId, tenantId, userName, plainPassword, userEmail, userRole, now,
+                User user = User.registerUser(userId, userName, plainPassword, userEmail, userRole, now,
                                 encryptionMockService);
 
                 assertThat(user).isNotNull();
@@ -85,7 +83,6 @@ public class UserTest {
                 UserRegistered event = (UserRegistered) events.get(0);
 
                 assertThat(event.userId()).isEqualTo(userId);
-                assertThat(event.tenantId()).isEqualTo(tenantId);
                 assertThat(event.userName()).isEqualTo(userName);
                 assertThat(event.emailAddress()).isEqualTo(userEmail);
                 assertThat(event.role()).isEqualTo(userRole);
@@ -101,7 +98,6 @@ public class UserTest {
         void shouldReconstituteUserSuccessfully() {
                 User user = User.reconstitute(
                                 userId,
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,
@@ -118,7 +114,6 @@ public class UserTest {
         void shouldVerifyUserHasPermission() {
                 User user = User.reconstitute(
                                 userId,
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,
@@ -135,7 +130,6 @@ public class UserTest {
         void shouldConsiderTwoUsersWithSameIdentifierAsEqual() {
                 User user1 = User.reconstitute(
                                 userId,
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,
@@ -145,7 +139,6 @@ public class UserTest {
 
                 User user2 = User.reconstitute(
                                 userId,
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,
@@ -161,7 +154,6 @@ public class UserTest {
         void shouldConsiderTwoUsersWithDifferentIdentifiersAsUnequal() {
                 User user1 = User.reconstitute(
                                 userId,
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,
@@ -171,7 +163,6 @@ public class UserTest {
 
                 User user2 = User.reconstitute(
                                 new UserId(UUID.fromString("223e4567-e89b-12d3-a456-426614174111")),
-                                tenantId,
                                 userName,
                                 encryptedPassword,
                                 userEmail,

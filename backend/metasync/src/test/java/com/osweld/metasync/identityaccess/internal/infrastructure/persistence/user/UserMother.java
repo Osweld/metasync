@@ -28,7 +28,7 @@ public class UserMother{
         UserStatus status = new UserStatus(StatusType.ACTIVE);
         UserRole role = new UserRole(Role.TENANT_OWNER);
         LocalDateTime createdAt = LocalDateTime.now();
-        return User.reconstitute(userId, tenantId, userName, encryptedPassword, emailAddress, status, role, createdAt);
+        return User.reconstitute(userId, userName, encryptedPassword, emailAddress, status, role, createdAt);
 
     }
 
