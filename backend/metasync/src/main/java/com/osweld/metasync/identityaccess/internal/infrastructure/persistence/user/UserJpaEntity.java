@@ -29,8 +29,6 @@ public class UserJpaEntity {
     @Id
     @Column(name = "user_id", nullable = false, updatable = false)
     private UUID userId;
-    @Column(name = "tenant_id", nullable = false, updatable = false)
-    private UUID tenantId;
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)

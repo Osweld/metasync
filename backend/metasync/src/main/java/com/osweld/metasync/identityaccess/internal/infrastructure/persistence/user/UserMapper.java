@@ -15,7 +15,6 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.UserStatus;
 public class UserMapper {
     public void updateJpaEntity(UserJpaEntity entity, User user) {
         entity.setUserId(user.getUserId().value());
-        entity.setTenantId(user.getTenantId().value());
         entity.setFirstName(user.getUserName().firstName());
         entity.setLastName(user.getUserName().lastName());
         entity.setEncryptedPassword(user.getEncryptedPassword().value());
@@ -28,7 +27,6 @@ public class UserMapper {
     public User toDomainModel(UserJpaEntity entity) {
         return User.reconstitute(
                 new UserId(entity.getUserId()),
-                new TenantId(entity.getTenantId()),
                 new PersonName(entity.getFirstName(), entity.getLastName()),
                 new EncryptedPassword(entity.getEncryptedPassword()),
                 new EmailAddress(entity.getEmail()),
