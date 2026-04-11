@@ -58,9 +58,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
 
         User owner = generateOwnerUser(tenant.getTenantId(), ownerEmail, personName, command.ownerPassword());
 
-        Tenant savedTenant = transactionTemplate.execute(status -> {
-            return tenantRepository.save(tenant);
-        });
+        Tenant savedTenant = transactionTemplate.execute(status -> tenantRepository.save(tenant));
 
         String previousSchema = AppTenantContext.getCurrentTenant();
 
@@ -71,9 +69,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
 
             try {
 
-                transactionTemplate.executeWithoutResult(status -> {
-                    userRepository.save(owner);
-                });
+                transactionTemplate.executeWithoutResult(status -> userRepository.save(owner));
 
             } catch (Exception e) {
                 handleCompensation(tenant);
@@ -89,9 +85,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
     private void handleCompensation(Tenant tenant) {
         try {
 
-            transactionTemplate.executeWithoutResult(status -> {
-                tenantRepository.deleteById(tenant.getTenantId());
-            });
+            transactionTemplate.executeWithoutResult(status -> tenantRepository.deleteById(tenant.getTenantId()));
         } catch (Exception e) {
             log.error("CRITICAL: Failed to delete tenant during compensation for tenant: {}", tenant.getTenantId().value(), e);
         }
@@ -137,7 +131,6 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
 
         return User.registerTenantOwner(
                 ownerUserId,
-                tenantId,
                 personName,
                 ownerPassword,
                 ownerEmail,
