@@ -16,7 +16,6 @@ import lombok.Getter;
 public class User extends AggregateRoot {
 
     private final UserId userId;
-    private final TenantId tenantId;
     private PersonName userName;
     private EncryptedPassword encryptedPassword;
     private EmailAddress emailAddress;
@@ -26,7 +25,6 @@ public class User extends AggregateRoot {
 
     private User(
             UserId userId,
-            TenantId tenantId,
             PersonName userName,
             EncryptedPassword encryptedPassword,
             EmailAddress emailAddress,
@@ -34,7 +32,6 @@ public class User extends AggregateRoot {
             UserRole role,
             LocalDateTime createdAt) {
         this.userId = Objects.requireNonNull(userId, "userId must not be null");
-        this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
         this.userName = Objects.requireNonNull(userName, "userName must not be null");
         this.encryptedPassword = Objects.requireNonNull(encryptedPassword, "encryptedPassword must not be null");
         this.emailAddress = Objects.requireNonNull(emailAddress, "emailAddress must not be null");
@@ -45,7 +42,6 @@ public class User extends AggregateRoot {
 
     public static User registerTenantOwner(
             UserId userId,
-            TenantId tenantId,
             PersonName userName,
             String plainPassword,
             EmailAddress emailAddress,
@@ -58,7 +54,6 @@ public class User extends AggregateRoot {
 
         User user = new User(
                 userId,
-                tenantId,
                 userName,
                 encryptedPassword,
                 emailAddress,
@@ -69,7 +64,6 @@ public class User extends AggregateRoot {
         user.registerDomainEvent(
                 UserAdministratorRegistered.now(
                         userId,
-                        tenantId,
                         userName,
                         emailAddress,
                         initialStatus,
@@ -79,7 +73,6 @@ public class User extends AggregateRoot {
 
     public static User registerUser(
             UserId userId,
-            TenantId tenantId,
             PersonName userName,
             String plainPassword,
             EmailAddress emailAddress,
@@ -92,7 +85,6 @@ public class User extends AggregateRoot {
 
         User user = new User(
                 userId,
-                tenantId,
                 userName,
                 encryptedPassword,
                 emailAddress,
@@ -100,14 +92,13 @@ public class User extends AggregateRoot {
                 role,
                 createdAt);
 
-        user.registerDomainEvent(UserRegistered.now(userId, tenantId, userName, emailAddress, initialStatus, role));
+        user.registerDomainEvent(UserRegistered.now(userId, userName, emailAddress, initialStatus, role));
 
         return user;
     }
 
     public static User reconstitute(
             UserId userId,
-            TenantId tenantId,
             PersonName userName,
             EncryptedPassword encryptedPassword,
             EmailAddress emailAddress,
@@ -116,7 +107,6 @@ public class User extends AggregateRoot {
             LocalDateTime createdAt) {
         return new User(
                 userId,
-                tenantId,
                 userName,
                 encryptedPassword,
                 emailAddress,

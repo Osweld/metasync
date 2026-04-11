@@ -14,7 +14,6 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.UserStatus;
 public record UserRegistered(
      Instant occurredOn,
     UserId userId,
-    TenantId tenantId,
     PersonName userName,
     EmailAddress emailAddress,
     UserStatus status,
@@ -23,7 +22,6 @@ public record UserRegistered(
 
     public UserRegistered {
         Objects.requireNonNull(userId, "userId must not be null");
-        Objects.requireNonNull(tenantId, "tenantId must not be null");
         Objects.requireNonNull(userName, "userName must not be null");
         Objects.requireNonNull(emailAddress, "emailAddress must not be null");
         Objects.requireNonNull(status, "status must not be null");
@@ -32,7 +30,6 @@ public record UserRegistered(
 
     public static UserRegistered now(
         UserId userId,
-        TenantId tenantId,
         PersonName userName,
         EmailAddress emailAddress,
         UserStatus status,
@@ -41,7 +38,6 @@ public record UserRegistered(
         return new UserRegistered(
             Instant.now(),
             userId,
-            tenantId,
             userName,
             emailAddress,
             status,
