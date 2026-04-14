@@ -17,6 +17,7 @@ public class AccountToken extends AggregateRoot {
     private final TenantId tenantId;
     private final TokenHash tokenHash;
     private final AccountTokenType tokenType;
+    private AccountTokenStatus accountTokenStatus;
     private final LocalDateTime expiresAt;
     private final LocalDateTime createdAt;
     private LocalDateTime usedAt;
@@ -27,8 +28,10 @@ public class AccountToken extends AggregateRoot {
             TenantId tenantId,
             TokenHash tokenHash,
             AccountTokenType tokenType,
+            AccountTokenStatus accountTokenStatus,
+            LocalDateTime createdAt,
             LocalDateTime expiresAt,
-            LocalDateTime createdAt) {
+            LocalDateTime usedAt) {
 
         if (expiresAt.isBefore(createdAt)) {
             throw new IllegalArgumentException("expiresAt must be after createdAt");
@@ -39,6 +42,7 @@ public class AccountToken extends AggregateRoot {
         this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
         this.tokenHash = Objects.requireNonNull(tokenHash, "tokenHash must not be null");
         this.tokenType = Objects.requireNonNull(tokenType, "tokenType must not be null");
+        this.accountTokenStatus = Objects.requireNonNull(accountTokenStatus, "accountTokenStatus must not be null");
         this.expiresAt = Objects.requireNonNull(expiresAt, "expiresAt must not be null");
         this.createdAt = Objects.requireNonNull(createdAt, "createdAt must not be null");
     }
@@ -48,12 +52,14 @@ public class AccountToken extends AggregateRoot {
             UserId userId,
             TenantId tenantId,
             TokenHash tokenHash,
+            AccountTokenStatus accountTokenStatus,
+            LocalDateTime createdAt,
             LocalDateTime expiresAt,
-            LocalDateTime createdAt) {
+            LocalDateTime usedAt) {
 
         AccountTokenType tokenType = new AccountTokenType(TokenType.TENANT_ACTIVATION);
 
-        return new AccountToken(tokenId, userId, tenantId, tokenHash, tokenType, expiresAt, createdAt);
+        return new AccountToken(tokenId, userId, tenantId, tokenHash, tokenType,accountTokenStatus, createdAt, expiresAt, usedAt);
     }
 
     public void consume(LocalDateTime usedAt) {
@@ -65,15 +71,41 @@ public class AccountToken extends AggregateRoot {
             throw new IllegalStateException("Token has expired");
         }
         this.usedAt = usedAt;
+        this.accountTokenStatus = new AccountTokenStatus(TokenStatus.USED);
     }
 
     public boolean isUsed() {
-        return this.usedAt != null;
+        return this.usedAt != null && this.accountTokenStatus.value() == TokenStatus.USED;
     }
 
     public boolean isExpired(LocalDateTime now) {
         Objects.requireNonNull(now, "now must not be null");
         return now.isAfter(this.expiresAt);
+    }
+
+    public static AccountToken reconstitute(
+            TokenId tokenId,
+            UserId userId,
+            TenantId tenantId,
+            TokenHash tokenHash,
+            AccountTokenType accountTokenType,
+            AccountTokenStatus accountTokenStatus,
+            LocalDateTime createdAt,
+            LocalDateTime expiresAt,
+            LocalDateTime usedAt
+
+    ) {
+        return new AccountToken(
+                tokenId,
+                userId,
+                tenantId,
+                tokenHash,
+                accountTokenType,
+                accountTokenStatus,
+                expiresAt,
+                createdAt,
+                usedAt
+        );
     }
 
 }
