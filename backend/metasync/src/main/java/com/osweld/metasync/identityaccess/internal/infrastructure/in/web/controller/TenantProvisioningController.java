@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.in.web;
+package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
