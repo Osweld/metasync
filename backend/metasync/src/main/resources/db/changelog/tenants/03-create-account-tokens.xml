@@ -6,7 +6,7 @@
 
     <changeSet id="3-create-account-tokens" author="metasync-team">
         <createTable tableName="account_tokens">
-            <column name="token_id" type="UUID">
+            <column name="account_token_id" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="UUID">
@@ -32,6 +32,9 @@
             </column>
             <column name="used_at" type="TIMESTAMP WITH TIME ZONE">
                 <constraints/>
+            </column>
+            <column name="version" type="INT" defaultValueNumeric="0">
+                <constraints nullable="false" />
             </column>
 
         </createTable>
