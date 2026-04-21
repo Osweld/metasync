@@ -19,8 +19,6 @@ import com.osweld.metasync.identityaccess.infrastructure.persistence.schema.Liqu
 import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.HibernateTenantRepository;
 import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.TenantMapper;
 import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.TenantMother;
-import com.osweld.metasync.identityaccess.infrastructure.persistence.user.HibernateUserRepository;
-import com.osweld.metasync.identityaccess.infrastructure.persistence.user.UserMapper;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 import jakarta.persistence.EntityManager;

@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
 
 public class TenantIdTest {
 

@@ -13,7 +13,6 @@ import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCom
 import com.osweld.metasync.identityaccess.application.port.out.SchemaProvisionerPort;
 import com.osweld.metasync.identityaccess.application.port.out.TenantRepository;
 import com.osweld.metasync.identityaccess.application.port.out.UserRepository;
-import com.osweld.metasync.identityaccess.application.service.TenantProvisioningService;
 import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
 import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
 import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
