@@ -1,10 +1,12 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.exception;
+package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.handler;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.persistence.OptimisticLockException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -78,6 +80,17 @@ public class IdentityAccessExceptionHandler {
                 ex.getMessage());
 
         log.warn("Domain exception occurred: {}", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ObjectOptimisticLockingFailureException.class, OptimisticLockException.class})
+    public ResponseEntity<ErrorResponse>  handleOptimisticLock(Exception ex){
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.CONFLICT.value(),
+                "Concurrency Conflict",
+                "The resource was modified by another transaction. Please refresh and try again.");
+
+        log.warn("Concurrency conflict error: {}", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
