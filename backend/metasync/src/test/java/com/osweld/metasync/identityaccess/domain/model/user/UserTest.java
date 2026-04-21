@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -12,11 +12,20 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.DomainEvent;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserAdministratorRegistered;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserRegistered;
-import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
+import com.osweld.metasync.identityaccess.domain.model.DomainEvent;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
+import com.osweld.metasync.identityaccess.domain.model.user.Permission;
+import com.osweld.metasync.identityaccess.domain.model.user.PersonName;
+import com.osweld.metasync.identityaccess.domain.model.user.Role;
+import com.osweld.metasync.identityaccess.domain.model.user.StatusType;
+import com.osweld.metasync.identityaccess.domain.model.user.User;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
+import com.osweld.metasync.identityaccess.domain.model.user.UserRole;
+import com.osweld.metasync.identityaccess.domain.model.user.UserStatus;
+import com.osweld.metasync.identityaccess.domain.model.user.event.UserAdministratorRegistered;
+import com.osweld.metasync.identityaccess.domain.model.user.event.UserRegistered;
+import com.osweld.metasync.identityaccess.domain.service.EncryptionService;
 
 public class UserTest {
 

@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.schema;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.schema;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Component;
 
-import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
+import com.osweld.metasync.identityaccess.application.port.out.SchemaProvisionerPort;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 
 import liquibase.Contexts;

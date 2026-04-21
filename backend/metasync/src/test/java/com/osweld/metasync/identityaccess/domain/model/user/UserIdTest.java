@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 public class UserIdTest {
 

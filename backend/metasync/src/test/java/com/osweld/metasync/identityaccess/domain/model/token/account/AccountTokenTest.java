@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.token.account;
+package com.osweld.metasync.identityaccess.domain.model.token.account;
 
 import java.time.LocalDateTime;
 
@@ -6,10 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.token.account.AccountToken;
+import com.osweld.metasync.identityaccess.domain.model.token.account.AccountTokenStatus;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenHash;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenId;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenStatus;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenType;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountTokenTest {
 

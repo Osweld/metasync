@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.application.port.in;
+package com.osweld.metasync.identityaccess.application.port.in;
 
 
 

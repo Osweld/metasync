@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -9,6 +9,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
 
 public class EncryptedPasswordTest {
 

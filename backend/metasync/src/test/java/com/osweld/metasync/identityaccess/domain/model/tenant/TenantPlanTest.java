@@ -1,7 +1,10 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
+package com.osweld.metasync.identityaccess.domain.model.tenant;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantPlan;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

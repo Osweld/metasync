@@ -1,10 +1,10 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.tenant;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.StatusType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.StatusType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

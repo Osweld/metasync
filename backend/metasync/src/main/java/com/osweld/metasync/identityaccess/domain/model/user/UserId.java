@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import java.util.UUID;
 

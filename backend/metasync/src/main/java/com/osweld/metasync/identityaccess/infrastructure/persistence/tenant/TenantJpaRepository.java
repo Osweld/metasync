@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.tenant;
 
 import java.util.UUID;
 

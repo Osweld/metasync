@@ -1,7 +1,7 @@
-package com.osweld.metasync.identityaccess.internal.application.usecase;
+package com.osweld.metasync.identityaccess.application.usecase;
 
-import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
 
 public interface ProvisionTenantUseCase {
 

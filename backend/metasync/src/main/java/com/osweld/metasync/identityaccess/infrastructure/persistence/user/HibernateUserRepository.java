@@ -1,13 +1,13 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.user;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
+import com.osweld.metasync.identityaccess.application.port.out.UserRepository;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.user.User;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 import lombok.RequiredArgsConstructor;
 

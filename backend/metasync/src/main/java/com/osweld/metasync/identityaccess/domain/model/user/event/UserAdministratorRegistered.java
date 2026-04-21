@@ -1,14 +1,14 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user.event;
+package com.osweld.metasync.identityaccess.domain.model.user.event;
 
 import java.time.Instant;
 import java.util.Objects;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.DomainEvent;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserRole;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserStatus;
+import com.osweld.metasync.identityaccess.domain.model.DomainEvent;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.user.PersonName;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
+import com.osweld.metasync.identityaccess.domain.model.user.UserRole;
+import com.osweld.metasync.identityaccess.domain.model.user.UserStatus;
 
 public record UserAdministratorRegistered(
     Instant occurredOn,

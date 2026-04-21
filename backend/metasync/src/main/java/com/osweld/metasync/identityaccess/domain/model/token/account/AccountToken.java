@@ -1,11 +1,11 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.token.account;
+package com.osweld.metasync.identityaccess.domain.model.token.account;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
+import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 import lombok.Getter;
 

@@ -1,11 +1,11 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
+package com.osweld.metasync.identityaccess.domain.model.tenant;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
+import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.tenant.event.TenantProvisioned;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;

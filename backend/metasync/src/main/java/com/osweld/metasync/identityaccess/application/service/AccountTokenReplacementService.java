@@ -1,7 +1,8 @@
-package com.osweld.metasync.identityaccess.internal.application.service;
+package com.osweld.metasync.identityaccess.application.service;
 
-import com.osweld.metasync.identityaccess.internal.application.port.out.AccountTokenRepository;
 import org.springframework.stereotype.Service;
+
+import com.osweld.metasync.identityaccess.application.port.out.AccountTokenRepository;
 
 @Service
 public class AccountTokenReplacementService {

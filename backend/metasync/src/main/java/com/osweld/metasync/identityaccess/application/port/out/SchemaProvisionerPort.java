@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.application.port.out;
+package com.osweld.metasync.identityaccess.application.port.out;
 
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 

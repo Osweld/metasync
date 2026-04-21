@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.application.service;
+package com.osweld.metasync.identityaccess.application.service;
 
 import java.time.LocalDateTime;
 
@@ -7,20 +7,20 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
-import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
-import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
-import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
-import com.osweld.metasync.identityaccess.internal.application.usecase.ProvisionTenantUseCase;
-import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
-import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
+import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.application.port.out.SchemaProvisionerPort;
+import com.osweld.metasync.identityaccess.application.port.out.TenantRepository;
+import com.osweld.metasync.identityaccess.application.port.out.UserRepository;
+import com.osweld.metasync.identityaccess.application.usecase.ProvisionTenantUseCase;
+import com.osweld.metasync.identityaccess.domain.exception.EmailAlreadyExistsException;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantPlan;
+import com.osweld.metasync.identityaccess.domain.model.user.PersonName;
+import com.osweld.metasync.identityaccess.domain.model.user.User;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
+import com.osweld.metasync.identityaccess.domain.service.EncryptionService;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;

@@ -1,10 +1,10 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.user;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.user.StatusType;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.Role;
+import com.osweld.metasync.identityaccess.domain.model.user.Role;
+import com.osweld.metasync.identityaccess.domain.model.user.StatusType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,5 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.token.account;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.token.account;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.token.account.TokenStatus;
-import com.osweld.metasync.identityaccess.internal.domain.model.token.account.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenStatus;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenType;
 
 @Entity
 @Table(name = "account_tokens", schema = "public")

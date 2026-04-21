@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
+package com.osweld.metasync.identityaccess.domain.model.tenant;
 
 public enum StatusType {
     ACTIVE,

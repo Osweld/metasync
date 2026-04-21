@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.user;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 
 import java.util.Optional;
 
@@ -13,12 +13,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
-import com.osweld.metasync.identityaccess.internal.infrastructure.persistence.schema.LiquibaseSchemaAdapter;
-import com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant.HibernateTenantRepository;
-import com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant.TenantMapper;
-import com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant.TenantMother;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.user.User;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.schema.LiquibaseSchemaAdapter;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.HibernateTenantRepository;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.TenantMapper;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.TenantMother;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.user.HibernateUserRepository;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.user.UserMapper;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 import jakarta.persistence.EntityManager;

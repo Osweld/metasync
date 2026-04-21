@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.token.account;
+package com.osweld.metasync.identityaccess.domain.model.token.account;
 
 public record AccountTokenStatus(TokenStatus value) {
 

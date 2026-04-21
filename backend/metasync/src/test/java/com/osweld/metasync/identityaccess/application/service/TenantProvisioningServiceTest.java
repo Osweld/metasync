@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.application.service;
+package com.osweld.metasync.identityaccess.application.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,8 +9,16 @@ import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.application.port.out.SchemaProvisionerPort;
+import com.osweld.metasync.identityaccess.application.port.out.TenantRepository;
+import com.osweld.metasync.identityaccess.application.port.out.UserRepository;
+import com.osweld.metasync.identityaccess.application.service.TenantProvisioningService;
+import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
+import com.osweld.metasync.identityaccess.domain.service.EncryptionService;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,12 +29,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
-import com.osweld.metasync.identityaccess.internal.application.port.out.SchemaProvisionerPort;
-import com.osweld.metasync.identityaccess.internal.application.port.out.TenantRepository;
-import com.osweld.metasync.identityaccess.internal.application.port.out.UserRepository;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPassword;
-import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
 import com.osweld.metasync.shared.multitenancy.context.AppTenantContext;
 
 import jakarta.validation.ConstraintViolationException;

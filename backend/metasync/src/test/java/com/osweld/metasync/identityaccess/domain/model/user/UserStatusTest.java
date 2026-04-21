@@ -1,10 +1,13 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.osweld.metasync.identityaccess.domain.model.user.StatusType;
+import com.osweld.metasync.identityaccess.domain.model.user.UserStatus;
 
 public class UserStatusTest {
 

@@ -1,9 +1,9 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.security;
+package com.osweld.metasync.identityaccess.infrastructure.security;
 
 import org.springframework.stereotype.Service;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPassword;
-import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
+import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
+import com.osweld.metasync.identityaccess.domain.service.EncryptionService;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

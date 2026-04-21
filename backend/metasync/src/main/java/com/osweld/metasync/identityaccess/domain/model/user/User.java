@@ -1,13 +1,13 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.user;
+package com.osweld.metasync.identityaccess.domain.model.user;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserAdministratorRegistered;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserRegistered;
-import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
+import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.user.event.UserAdministratorRegistered;
+import com.osweld.metasync.identityaccess.domain.model.user.event.UserRegistered;
+import com.osweld.metasync.identityaccess.domain.service.EncryptionService;
 
 import lombok.Getter;
 

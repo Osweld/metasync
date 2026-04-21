@@ -1,14 +1,14 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.controller;
+package com.osweld.metasync.identityaccess.infrastructure.in.web.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
-import com.osweld.metasync.identityaccess.internal.application.usecase.ProvisionTenantUseCase;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.infrastructure.in.web.dto.ProvisionTenantRequest;
-import com.osweld.metasync.identityaccess.internal.infrastructure.in.web.dto.ProvisionTenantResponse;
+import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.application.usecase.ProvisionTenantUseCase;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.infrastructure.in.web.dto.ProvisionTenantRequest;
+import com.osweld.metasync.identityaccess.infrastructure.in.web.dto.ProvisionTenantResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

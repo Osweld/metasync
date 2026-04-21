@@ -1,9 +1,10 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.token.account;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.token.account;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.token.account.*;
-import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
 import org.springframework.stereotype.Component;
+
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.token.account.*;
+import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 @Component
 public class AccountTokenMapper {

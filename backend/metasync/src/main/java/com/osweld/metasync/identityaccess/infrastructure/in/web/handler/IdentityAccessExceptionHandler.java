@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.in.web.handler;
+package com.osweld.metasync.identityaccess.infrastructure.in.web.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.osweld.metasync.identityaccess.internal.domain.exception.EmailAlreadyExistsException;
-import com.osweld.metasync.identityaccess.internal.domain.exception.IdentityAccessDomainException;
+import com.osweld.metasync.identityaccess.domain.exception.EmailAlreadyExistsException;
+import com.osweld.metasync.identityaccess.domain.exception.IdentityAccessDomainException;
 import com.osweld.metasync.shared.exception.dto.ErrorResponse;
 
 import jakarta.validation.ConstraintViolationException;

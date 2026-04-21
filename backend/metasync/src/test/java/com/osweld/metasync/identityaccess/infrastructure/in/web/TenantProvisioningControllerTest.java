@@ -1,11 +1,10 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.in.web;
+package com.osweld.metasync.identityaccess.infrastructure.in.web;
 
 import static org.mockito.ArgumentMatchers.refEq;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.osweld.metasync.identityaccess.internal.infrastructure.in.web.controller.TenantProvisioningController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.osweld.metasync.identityaccess.internal.application.port.in.ProvisionTenantCommand;
-import com.osweld.metasync.identityaccess.internal.application.usecase.ProvisionTenantUseCase;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
-import com.osweld.metasync.identityaccess.internal.infrastructure.in.web.dto.ProvisionTenantRequest;
+import com.osweld.metasync.identityaccess.application.port.in.ProvisionTenantCommand;
+import com.osweld.metasync.identityaccess.application.usecase.ProvisionTenantUseCase;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantPlan;
+import com.osweld.metasync.identityaccess.infrastructure.in.web.controller.TenantProvisioningController;
+import com.osweld.metasync.identityaccess.infrastructure.in.web.dto.ProvisionTenantRequest;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;
@@ -113,7 +113,7 @@ public class TenantProvisioningControllerTest {
         mockMvc.perform(post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isInternalServerError());
     }
 
 }

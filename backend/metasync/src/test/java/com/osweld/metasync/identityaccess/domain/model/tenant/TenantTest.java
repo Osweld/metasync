@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model.tenant;
+package com.osweld.metasync.identityaccess.domain.model.tenant;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,9 +7,15 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.DomainEvent;
-import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.event.TenantProvisioned;
+import com.osweld.metasync.identityaccess.domain.model.DomainEvent;
+import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
+import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.StatusType;
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantPlan;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantStatus;
+import com.osweld.metasync.identityaccess.domain.model.tenant.event.TenantProvisioned;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;

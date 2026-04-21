@@ -1,9 +1,9 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.token.account;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.token.account;
 
-import com.osweld.metasync.identityaccess.internal.application.port.out.AccountTokenRepository;
-import com.osweld.metasync.identityaccess.internal.domain.model.token.account.AccountToken;
+import com.osweld.metasync.identityaccess.application.port.out.AccountTokenRepository;
+import com.osweld.metasync.identityaccess.domain.model.token.account.AccountToken;
+import com.osweld.metasync.identityaccess.domain.model.token.account.TokenId;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.token.account.TokenId;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;

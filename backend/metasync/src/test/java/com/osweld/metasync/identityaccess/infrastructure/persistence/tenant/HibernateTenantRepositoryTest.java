@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.tenant;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.tenant;
 
 import java.util.Optional;
 
@@ -11,14 +11,15 @@ import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabas
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
+import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.HibernateTenantRepository;
+import com.osweld.metasync.identityaccess.infrastructure.persistence.tenant.TenantMapper;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;
 
 import jakarta.persistence.EntityManager;
-
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

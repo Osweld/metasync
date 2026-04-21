@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.token.account;
+package com.osweld.metasync.identityaccess.infrastructure.persistence.token.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

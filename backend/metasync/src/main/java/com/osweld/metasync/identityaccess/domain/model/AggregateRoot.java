@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.model;
+package com.osweld.metasync.identityaccess.domain.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

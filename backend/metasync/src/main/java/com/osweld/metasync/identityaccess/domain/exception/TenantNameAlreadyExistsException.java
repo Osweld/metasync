@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.internal.domain.exception;
+package com.osweld.metasync.identityaccess.domain.exception;
 
 public class TenantNameAlreadyExistsException extends IdentityAccessDomainException {
     
