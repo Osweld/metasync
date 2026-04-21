@@ -1,6 +1,5 @@
 package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.token.account;
 
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.token.account.TokenStatus;
 import com.osweld.metasync.identityaccess.internal.domain.model.token.account.TokenType;
 import jakarta.persistence.*;

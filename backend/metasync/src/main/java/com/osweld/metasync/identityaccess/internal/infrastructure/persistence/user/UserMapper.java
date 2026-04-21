@@ -3,7 +3,6 @@ package com.osweld.metasync.identityaccess.internal.infrastructure.persistence.u
 import org.springframework.stereotype.Component;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.EncryptedPassword;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.User;
