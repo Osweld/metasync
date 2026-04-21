@@ -9,7 +9,9 @@ import com.osweld.metasync.identityaccess.internal.domain.model.token.account.To
 public interface AccountTokenRepository {
 
     TokenId nextIdentity();
-    void save(AccountToken accountToken);
+    void saveTenantActivationToken(AccountToken accountToken);
     Optional<AccountToken> findById(TokenId tokenId);
-    void updateUsedAt(TokenId tokenId, LocalDateTime usedAt);
+    void accountTokenUsed(TokenId tokenId, LocalDateTime usedAt);
+    void accountTokenInvalidated(TokenId tokenId);
+    void accountTokenExpired(TokenId tokenId);
 }
