@@ -62,7 +62,7 @@ public class HibernateUserRepositoryTest extends AbstractIntegrationTest {
         Tenant tenant = TenantMother.Random();
 
         transactionTemplate.execute(status -> {
-            tenantRepository.save(tenant);
+            tenantRepository.createTenant(tenant);
             return null;
         });
 
@@ -80,7 +80,7 @@ public class HibernateUserRepositoryTest extends AbstractIntegrationTest {
             AppTenantContext.setCurrentTenant(tenant.getSchemaName().value());
 
             transactionTemplate.execute(status -> {
-                userRepository.save(user);
+                userRepository.createUser(user);
                 entityManager.flush();
                 entityManager.clear();
                 return null;

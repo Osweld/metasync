@@ -9,7 +9,7 @@ import com.osweld.metasync.identityaccess.internal.domain.model.user.UserId;
 public interface UserRepository {
 
     UserId nextIdentity();
-    User save(User user);
+    User createUser(User user);
     Optional<User> findById(UserId userId);
     boolean existsByEmail(EmailAddress emailAddress);
 
