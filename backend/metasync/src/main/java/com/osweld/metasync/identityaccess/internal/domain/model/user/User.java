@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.AggregateRoot;
 import com.osweld.metasync.identityaccess.internal.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantId;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserAdministratorRegistered;
 import com.osweld.metasync.identityaccess.internal.domain.model.user.event.UserRegistered;
 import com.osweld.metasync.identityaccess.internal.domain.service.EncryptionService;
