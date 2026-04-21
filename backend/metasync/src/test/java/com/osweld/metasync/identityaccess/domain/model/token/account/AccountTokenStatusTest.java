@@ -3,8 +3,6 @@ package com.osweld.metasync.identityaccess.domain.model.token.account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.domain.model.token.account.AccountTokenStatus;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
 

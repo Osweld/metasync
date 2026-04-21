@@ -3,8 +3,6 @@ package com.osweld.metasync.identityaccess.domain.model.token.account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.domain.model.token.account.AccountTokenType;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

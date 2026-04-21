@@ -7,12 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
-import com.osweld.metasync.identityaccess.domain.model.token.account.AccountToken;
-import com.osweld.metasync.identityaccess.domain.model.token.account.AccountTokenStatus;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenHash;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenId;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenStatus;
-import com.osweld.metasync.identityaccess.domain.model.token.account.TokenType;
+
 import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 import static org.assertj.core.api.Assertions.assertThat;

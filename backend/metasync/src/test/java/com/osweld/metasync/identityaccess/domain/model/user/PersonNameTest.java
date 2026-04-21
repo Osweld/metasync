@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import com.osweld.metasync.identityaccess.domain.model.user.PersonName;
 
 public class PersonNameTest {
 

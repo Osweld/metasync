@@ -6,10 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.osweld.metasync.identityaccess.domain.model.user.Permission;
-import com.osweld.metasync.identityaccess.domain.model.user.Role;
-import com.osweld.metasync.identityaccess.domain.model.user.UserRole;
-
 public class UserRoleTest {
 
     private static final Role ADMIN_ROLE = Role.ADMIN;
