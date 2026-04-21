@@ -20,19 +20,21 @@ public class HibernateTenantRepository implements TenantRepository {
 
     @Override
     public TenantId nextIdentity() {
-       return TenantId.generate();
+        return TenantId.generate();
     }
 
     @Override
-    public Tenant save(Tenant tenant) {
+    public Tenant createTenant(Tenant tenant) {
+        TenantJpaEntity entity = new TenantJpaEntity();
+        tenantMapper.updateJpaEntity(entity, tenant);
+        return tenantMapper.toDomainModel(tenantJpaRepository.save(entity));
+    }
 
+    @Override
+    public Tenant updateTenant(Tenant tenant) {
         TenantJpaEntity entity = tenantJpaRepository.findById(tenant.getTenantId().value())
-                .orElseGet(() -> {
-                    TenantJpaEntity newEntity = new TenantJpaEntity();
-                    tenantMapper.updateJpaEntity(newEntity, tenant);
-                    return newEntity;
-                });
-
+                .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + tenant.getTenantId().value()));
+        tenantMapper.updateJpaEntity(entity, tenant);
         return tenantMapper.toDomainModel(tenantJpaRepository.save(entity));
     }
 
@@ -57,8 +59,5 @@ public class HibernateTenantRepository implements TenantRepository {
         tenantJpaRepository.deleteById(tenantId.value());
     }
 
-
-
-    
 
 }
