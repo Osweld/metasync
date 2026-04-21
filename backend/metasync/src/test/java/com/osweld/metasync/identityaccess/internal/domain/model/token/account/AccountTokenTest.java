@@ -68,7 +68,7 @@ public class AccountTokenTest {
     @DisplayName("Should consume token and set usedAt")
     void shouldConsumeTokenAndSetUsedAt() {
 
-        token.consume(LocalDateTime.now());
+        token.markAsUsed(LocalDateTime.now());
 
         assertThat(token.isUsed()).isTrue();
         assertThat(token.getUsedAt()).isNotNull();

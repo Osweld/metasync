@@ -62,7 +62,7 @@ public class AccountToken extends AggregateRoot {
         return new AccountToken(tokenId, userId, tenantId, tokenHash, tokenType,accountTokenStatus, createdAt, expiresAt, usedAt);
     }
 
-    public void consume(LocalDateTime usedAt) {
+    public void markAsUsed(LocalDateTime usedAt) {
 
         if (this.isUsed()) {
             throw new IllegalStateException("Token has already been used");
@@ -81,6 +81,28 @@ public class AccountToken extends AggregateRoot {
     public boolean isExpired(LocalDateTime now) {
         Objects.requireNonNull(now, "now must not be null");
         return now.isAfter(this.expiresAt);
+    }
+
+    public void markAsInvalid() {
+        if (this.isUsed()) {
+            throw new IllegalStateException("Token has already been used and cannot be invalidated");
+        }
+        if (this.accountTokenStatus.value() == TokenStatus.INVALID) {
+            throw new IllegalStateException("Token is already invalidated");
+        }
+        this.accountTokenStatus = new AccountTokenStatus(TokenStatus.INVALID);
+    }
+
+    public void markAsExpired(){
+        if(this.isUsed()) {
+            throw new IllegalStateException("Token has already been used and cannot be expired");
+        }
+
+        if(this.accountTokenStatus.value() == TokenStatus.EXPIRED) {
+            throw new IllegalStateException("Token is already expired");
+        }
+
+        this.accountTokenStatus = new AccountTokenStatus(TokenStatus.EXPIRED);
     }
 
     public static AccountToken reconstitute(
@@ -102,8 +124,8 @@ public class AccountToken extends AggregateRoot {
                 tokenHash,
                 accountTokenType,
                 accountTokenStatus,
-                expiresAt,
                 createdAt,
+                expiresAt,
                 usedAt
         );
     }

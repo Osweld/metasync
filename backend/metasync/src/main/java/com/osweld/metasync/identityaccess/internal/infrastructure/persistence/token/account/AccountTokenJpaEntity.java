@@ -41,4 +41,7 @@ public class AccountTokenJpaEntity {
     private LocalDateTime createdAt;
     @Column(name = "used_at")
     private LocalDateTime usedAt;
+    @Version
+    @Column(name = "version", nullable = false)
+    private Integer version;
 }
