@@ -46,7 +46,7 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
     void shouldSaveAndFindById() {
         Tenant tenant = TenantMother.Random();
 
-        tenantRepository.save(tenant);
+        tenantRepository.createTenant(tenant);
 
         Optional<Tenant> found = tenantRepository.findById(tenant.getTenantId());
 
@@ -61,7 +61,7 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
     @DisplayName("Should return true if tenant alias exists")
     void shouldReturnTrueIfTenantAliasExists() {
         Tenant tenant = TenantMother.Random();
-        tenantRepository.save(tenant);
+        tenantRepository.createTenant(tenant);
         boolean exists = tenantRepository.existsByTenantAlias(tenant.getTenantAlias());
         assertThat(exists).isTrue();
     }
@@ -70,7 +70,7 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
     @DisplayName("Should delete a tenant and ensure it cannot be found")
     void shouldDeleteAndEnsureNotFound() {
         Tenant tenant = TenantMother.Random();
-        tenantRepository.save(tenant);
+        tenantRepository.createTenant(tenant);
         tenantRepository.deleteById(tenant.getTenantId());
         Optional<Tenant> found = tenantRepository.findById(tenant.getTenantId());
         assertThat(found).isEmpty();
@@ -88,14 +88,14 @@ public class HibernateTenantRepositoryTest extends AbstractIntegrationTest {
     @DisplayName("Should thow an exception when trying to save a tenant with a duplicate alias")
     void shouldThrowExceptionWhenSavingTenantWithDuplicateAlias() {
         Tenant tenant1 = TenantMother.createWithAlias("duplicate-alias");
-        tenantRepository.save(tenant1);
+        tenantRepository.createTenant(tenant1);
         entityManager.flush();
         entityManager.clear();
 
         Tenant tenant2 = TenantMother.createWithAlias("duplicate-alias");
 
         assertThatThrownBy(() -> {
-            tenantRepository.save(tenant2);
+            tenantRepository.createTenant(tenant2);
             entityManager.flush();
         })
                 .isInstanceOfAny(ConstraintViolationException.class,

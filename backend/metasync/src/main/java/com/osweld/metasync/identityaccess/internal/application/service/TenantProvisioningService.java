@@ -58,7 +58,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
 
         User owner = generateOwnerUser(tenant.getTenantId(), ownerEmail, personName, command.ownerPassword());
 
-        Tenant savedTenant = transactionTemplate.execute(status -> tenantRepository.save(tenant));
+        Tenant savedTenant = transactionTemplate.execute(status -> tenantRepository.createTenant(tenant));
 
         String previousSchema = AppTenantContext.getCurrentTenant();
 
@@ -69,7 +69,7 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
 
             try {
 
-                transactionTemplate.executeWithoutResult(status -> userRepository.save(owner));
+                transactionTemplate.executeWithoutResult(status -> userRepository.createUser(owner));
 
             } catch (Exception e) {
                 handleCompensation(tenant);

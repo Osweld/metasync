@@ -11,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.PlanType;
 import com.osweld.metasync.identityaccess.internal.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.internal.domain.model.tenant.TenantPlan;
-import com.osweld.metasync.shared.domain.model.vo.SchemaName;
-import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,7 +63,7 @@ public class TenantProvisioningServiceTest {
         when(tenantRepository.existsByContactEmail(anyString())).thenReturn(false);
         when(tenantRepository.existsByTenantAlias(any())).thenReturn(false);
         when(encryptionService.encryptPassword(anyString())).thenReturn(new EncryptedPassword("encrypted-passwordencrypted-passwordencrypted-passwordencrypted-password"));
-        when(tenantRepository.save(any())).thenAnswer(invocation -> {
+        when(tenantRepository.createTenant(any())).thenAnswer(invocation -> {
             return invocation.<Tenant>getArgument(0);
         });
 
@@ -85,7 +82,7 @@ public class TenantProvisioningServiceTest {
         doAnswer(invocation -> {
             assertEquals("t_test_tenant", AppTenantContext.getCurrentTenant());
             return null;
-        }).when(userRepository).save(any());
+        }).when(userRepository).createUser(any());
 
        Tenant tenant = tenantProvisioningService.provisionTenant(command);
 

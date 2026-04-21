@@ -9,7 +9,8 @@ import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 public interface TenantRepository {
 
     TenantId nextIdentity();
-    Tenant save(Tenant tenant);
+    Tenant createTenant(Tenant tenant);
+    Tenant updateTenant(Tenant tenant);
     Optional<Tenant> findById(TenantId tenantId);
     boolean existsByTenantAlias(TenantAlias tenantAlias);
     boolean existsByContactEmail(String contactEmail);
