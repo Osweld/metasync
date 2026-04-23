@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/global/01-create-tenants.xml
   - include:
       file: db/changelog/global/02-add-version-to-tenants.xml
+  - include:
+      file: db/changelog/global/03-create-outbox-events.xml

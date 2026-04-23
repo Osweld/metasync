@@ -4,12 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="1-create-tenants-table" author="metasync-team">
+    <changeSet id="1-create-outbox-table" author="metasync-team">
         <createTable tableName="outbox_events" schemaName="public">
             <column name="id" type="UUID">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="aggretate_type" type="VARCHAR(255)">
+            <column name="aggregate_type" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="aggregate_id" type="UUID">
@@ -34,9 +34,9 @@
             <column name="attempt_count" type="INT" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
-            <column name="next_attempt_at" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="retry_after" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="published_at" type="TIMESTAMP WITH TIME ZONE"/>
-            <column name="created_at " type="TIMESTAMP WITH TIME ZONE">
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_at" type="TIMESTAMP WITH TIME ZONE">
@@ -44,5 +44,38 @@
             </column>
             <column name="last_error" type="TEXT"/>
         </createTable>
+    </changeSet>
+
+    <changeSet id="2-add-outbox-status-retry-index" author="metasync-team">
+        <createIndex indexName="idx_outbox_events_status_retry_after_created_at"
+                     tableName="outbox_events"
+                     schemaName="public">
+            <column name="status"/>
+            <column name="retry_after"/>
+            <column name="created_at"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="3-add-outbox-tenant-created-index" author="metasync-team">
+        <createIndex indexName="idx_outbox_events_tenant_created_at"
+                     tableName="outbox_events"
+                     schemaName="public">
+            <column name="tenant_id"/>
+            <column name="created_at"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="4-add-outbox-status-check" author="metasync-team">
+        <sql>
+            ALTER TABLE public.outbox_events
+            ADD CONSTRAINT chk_outbox_events_status
+            CHECK (status IN ('PENDING', 'PUBLISHED', 'FAILED'));
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE public.outbox_events
+                DROP CONSTRAINT IF EXISTS chk_outbox_events_status;
+            </sql>
+        </rollback>
     </changeSet>
 </databaseChangeLog>
