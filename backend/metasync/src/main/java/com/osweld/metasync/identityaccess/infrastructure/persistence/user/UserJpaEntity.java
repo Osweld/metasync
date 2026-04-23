@@ -33,11 +33,11 @@ public class UserJpaEntity {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-    @Column(name = "password_hash", nullable = false, length = 255)
+    @Column(name = "password_hash", nullable = false)
     private String encryptedPassword;
     @Column(name = "email", nullable = false, length = 100)
     private String email;
-@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private StatusType status;
     @Column(name = "role", nullable = false, length = 20)

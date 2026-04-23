@@ -1,7 +1,6 @@
 package com.osweld.metasync.identityaccess.domain.model.tenant;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,9 +44,9 @@ public class TenantTest {
         List<DomainEvent> events = tenant.pullDomainEvents();
 
         assertThat(events).hasSize(1);
-        assertThat(events.get(0)).isInstanceOf(TenantProvisioned.class);
+        assertThat(events.getFirst()).isInstanceOf(TenantProvisioned.class);
 
-        TenantProvisioned event = (TenantProvisioned) events.get(0);
+        TenantProvisioned event = (TenantProvisioned) events.getFirst();
 
         assertThat(event.tenantId()).isEqualTo(tenantId);
         assertThat(event.tenantAlias()).isEqualTo(tenantAlias);

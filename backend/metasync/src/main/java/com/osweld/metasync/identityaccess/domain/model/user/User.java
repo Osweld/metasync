@@ -1,7 +1,6 @@
 package com.osweld.metasync.identityaccess.domain.model.user;
 
 import java.time.Instant;
-import java.time.Instant;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;

@@ -48,8 +48,8 @@ public class UserTest {
                 List<DomainEvent> events = user.pullDomainEvents();
 
                 assertThat(events).hasSize(1);
-                assertThat(events.get(0)).isInstanceOf(UserAdministratorRegistered.class);
-                UserAdministratorRegistered event = (UserAdministratorRegistered) events.get(0);
+                assertThat(events.getFirst()).isInstanceOf(UserAdministratorRegistered.class);
+                UserAdministratorRegistered event = (UserAdministratorRegistered) events.getFirst();
 
                 assertThat(event.userId()).isEqualTo(userId);
                 assertThat(event.userName()).isEqualTo(userName);
@@ -78,8 +78,8 @@ public class UserTest {
 
                 List<DomainEvent> events = user.pullDomainEvents();
                 assertThat(events).hasSize(1);
-                assertThat(events.get(0)).isInstanceOf(UserRegistered.class);
-                UserRegistered event = (UserRegistered) events.get(0);
+                assertThat(events.getFirst()).isInstanceOf(UserRegistered.class);
+                UserRegistered event = (UserRegistered) events.getFirst();
 
                 assertThat(event.userId()).isEqualTo(userId);
                 assertThat(event.userName()).isEqualTo(userName);
