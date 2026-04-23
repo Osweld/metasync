@@ -1,6 +1,7 @@
 package com.osweld.metasync.identityaccess.domain.model.token.account;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.Instant;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
@@ -18,9 +19,9 @@ public class AccountToken extends AggregateRoot {
     private final TokenHash tokenHash;
     private final AccountTokenType tokenType;
     private AccountTokenStatus accountTokenStatus;
-    private final LocalDateTime expiresAt;
-    private final LocalDateTime createdAt;
-    private LocalDateTime usedAt;
+    private final Instant expiresAt;
+    private final Instant createdAt;
+    private Instant usedAt;
 
     private AccountToken(
             TokenId tokenId,
@@ -29,9 +30,9 @@ public class AccountToken extends AggregateRoot {
             TokenHash tokenHash,
             AccountTokenType tokenType,
             AccountTokenStatus accountTokenStatus,
-            LocalDateTime createdAt,
-            LocalDateTime expiresAt,
-            LocalDateTime usedAt) {
+            Instant createdAt,
+            Instant expiresAt,
+            Instant usedAt) {
 
         if (expiresAt.isBefore(createdAt)) {
             throw new IllegalArgumentException("expiresAt must be after createdAt");
@@ -53,16 +54,16 @@ public class AccountToken extends AggregateRoot {
             TenantId tenantId,
             TokenHash tokenHash,
             AccountTokenStatus accountTokenStatus,
-            LocalDateTime createdAt,
-            LocalDateTime expiresAt,
-            LocalDateTime usedAt) {
+            Instant createdAt,
+            Instant expiresAt,
+            Instant usedAt) {
 
         AccountTokenType tokenType = new AccountTokenType(TokenType.TENANT_ACTIVATION);
 
         return new AccountToken(tokenId, userId, tenantId, tokenHash, tokenType,accountTokenStatus, createdAt, expiresAt, usedAt);
     }
 
-    public void markAsUsed(LocalDateTime usedAt) {
+    public void markAsUsed(Instant usedAt) {
 
         if (this.isUsed()) {
             throw new IllegalStateException("Token has already been used");
@@ -78,7 +79,7 @@ public class AccountToken extends AggregateRoot {
         return this.usedAt != null && this.accountTokenStatus.value() == TokenStatus.USED;
     }
 
-    public boolean isExpired(LocalDateTime now) {
+    public boolean isExpired(Instant now) {
         Objects.requireNonNull(now, "now must not be null");
         return now.isAfter(this.expiresAt);
     }
@@ -112,9 +113,9 @@ public class AccountToken extends AggregateRoot {
             TokenHash tokenHash,
             AccountTokenType accountTokenType,
             AccountTokenStatus accountTokenStatus,
-            LocalDateTime createdAt,
-            LocalDateTime expiresAt,
-            LocalDateTime usedAt
+            Instant createdAt,
+            Instant expiresAt,
+            Instant usedAt
 
     ) {
         return new AccountToken(

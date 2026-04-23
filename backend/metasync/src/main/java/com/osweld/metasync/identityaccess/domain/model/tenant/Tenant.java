@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.domain.model.tenant;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
@@ -22,7 +22,7 @@ public class Tenant extends AggregateRoot {
     private EmailAddress contactEmail;
     private TenantPlan plan;
     private TenantStatus status;
-    private final LocalDateTime createdAt;
+    private final Instant createdAt;
 
 
     private Tenant(
@@ -33,7 +33,7 @@ public class Tenant extends AggregateRoot {
             EmailAddress contactEmail,
             TenantPlan plan,
             TenantStatus status,
-            LocalDateTime createdAt) {
+            Instant createdAt) {
         this.tenantId = Objects.requireNonNull(tenantId, "tenantId must not be null");
         this.tenantAlias = Objects.requireNonNull(tenantAlias, "tenantAlias must not be null");
         this.schemaName = Objects.requireNonNull(schemaName, "schemaName must not be null");
@@ -51,7 +51,7 @@ public class Tenant extends AggregateRoot {
             TenantName tenantName,
             EmailAddress contactEmail,
             TenantPlan plan,
-            LocalDateTime createdAt) {
+            Instant createdAt) {
         TenantStatus initialStatus = new TenantStatus(StatusType.PENDING);
 
         Tenant tenant = new Tenant(
@@ -77,7 +77,7 @@ public class Tenant extends AggregateRoot {
             EmailAddress contactEmail,
             TenantPlan plan,
             TenantStatus status,
-            LocalDateTime createdAt) {
+            Instant createdAt) {
         return new Tenant(
                 tenantId,
                 tenantAlias,

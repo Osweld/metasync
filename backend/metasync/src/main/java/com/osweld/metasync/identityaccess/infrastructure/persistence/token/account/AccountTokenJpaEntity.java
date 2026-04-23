@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.osweld.metasync.identityaccess.domain.model.token.account.TokenStatus;
@@ -36,11 +36,11 @@ public class AccountTokenJpaEntity {
     @Column(name="token_status", nullable = false, length = 50)
     private TokenStatus tokenStatus;
     @Column(name = "expires_at", nullable = false)
-    private LocalDateTime expiresAt;
+    private Instant expiresAt;
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private Instant createdAt;
     @Column(name = "used_at")
-    private LocalDateTime usedAt;
+    private Instant usedAt;
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;

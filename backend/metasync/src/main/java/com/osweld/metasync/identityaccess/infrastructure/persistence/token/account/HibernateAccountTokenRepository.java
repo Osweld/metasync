@@ -6,7 +6,7 @@ import com.osweld.metasync.identityaccess.domain.model.token.account.TokenId;
 
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -40,7 +40,7 @@ public class HibernateAccountTokenRepository implements AccountTokenRepository {
     }
 
     @Override
-    public void accountTokenUsed(TokenId tokenId, LocalDateTime usedAt) {
+    public void accountTokenUsed(TokenId tokenId, Instant usedAt) {
         mutateToken(tokenId, token -> token.markAsUsed(usedAt));
     }
 

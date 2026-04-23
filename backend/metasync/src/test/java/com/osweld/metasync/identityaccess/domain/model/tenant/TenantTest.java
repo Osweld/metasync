@@ -1,5 +1,6 @@
 package com.osweld.metasync.identityaccess.domain.model.tenant;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class TenantTest {
     private final TenantName tenantName = new TenantName("Acme Corp");
     private final EmailAddress contactEmail = new EmailAddress("contact@acme-corp.com");
     private final TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
-    private final LocalDateTime now = LocalDateTime.now();
+    private final Instant now = Instant.now();
 
     @Test
     @DisplayName("Should provision a new Tenant with initial PENDING status")

@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.application.service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -120,14 +120,14 @@ public class TenantProvisioningService implements ProvisionTenantUseCase {
         TenantId tenantId = TenantId.generate();
         SchemaName schemaName = SchemaName.from(tenantAlias);
 
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
 
         return Tenant.provision(tenantId, tenantAlias, schemaName, tenantName, ownerEmail, tenantPlan, now);
     }
 
     private User generateOwnerUser(TenantId tenantId, EmailAddress ownerEmail, PersonName personName, String ownerPassword) {
         UserId ownerUserId = UserId.generate();
-        LocalDateTime now = LocalDateTime.now();
+        Instant now = Instant.now();
 
         return User.registerTenantOwner(
                 ownerUserId,

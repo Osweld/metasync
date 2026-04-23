@@ -2,7 +2,7 @@ package com.osweld.metasync.identityaccess.infrastructure.in.web;
 
 import static org.mockito.ArgumentMatchers.refEq;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import org.junit.jupiter.api.DisplayName;
@@ -46,7 +46,7 @@ public class TenantProvisioningControllerTest {
     private final TenantName tenantName = new TenantName("Acme Corp");
     private final EmailAddress contactEmail = new EmailAddress("contact@acme-corp.com");
     private final TenantPlan tenantPlan = new TenantPlan(PlanType.FREE);
-    private final LocalDateTime now = LocalDateTime.now();
+    private final Instant now = Instant.now();
 
     @Autowired
     private MockMvc mockMvc;

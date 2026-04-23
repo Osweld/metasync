@@ -1,6 +1,7 @@
 package com.osweld.metasync.identityaccess.domain.model.user;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.Instant;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
@@ -20,7 +21,7 @@ public class User extends AggregateRoot {
     private EmailAddress emailAddress;
     private UserStatus status;
     private UserRole role;
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     private User(
             UserId userId,
@@ -29,7 +30,7 @@ public class User extends AggregateRoot {
             EmailAddress emailAddress,
             UserStatus status,
             UserRole role,
-            LocalDateTime createdAt) {
+            Instant createdAt) {
         this.userId = Objects.requireNonNull(userId, "userId must not be null");
         this.userName = Objects.requireNonNull(userName, "userName must not be null");
         this.encryptedPassword = Objects.requireNonNull(encryptedPassword, "encryptedPassword must not be null");
@@ -44,7 +45,7 @@ public class User extends AggregateRoot {
             PersonName userName,
             String plainPassword,
             EmailAddress emailAddress,
-            LocalDateTime createdAt,
+            Instant createdAt,
             EncryptionService encryptionService) {
         UserRole tenantOwnerRole = new UserRole(Role.TENANT_OWNER);
         UserStatus initialStatus = new UserStatus(StatusType.PENDING);
@@ -76,7 +77,7 @@ public class User extends AggregateRoot {
             String plainPassword,
             EmailAddress emailAddress,
             UserRole role,
-            LocalDateTime createdAt,
+            Instant createdAt,
             EncryptionService encryptionService) {
         UserStatus initialStatus = new UserStatus(StatusType.PENDING);
 
@@ -103,7 +104,7 @@ public class User extends AggregateRoot {
             EmailAddress emailAddress,
             UserStatus status,
             UserRole role,
-            LocalDateTime createdAt) {
+            Instant createdAt) {
         return new User(
                 userId,
                 userName,

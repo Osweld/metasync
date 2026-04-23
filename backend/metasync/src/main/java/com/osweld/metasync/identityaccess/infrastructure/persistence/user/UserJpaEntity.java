@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.osweld.metasync.identityaccess.domain.model.user.Role;
@@ -44,7 +44,7 @@ public class UserJpaEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private Instant createdAt;
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;

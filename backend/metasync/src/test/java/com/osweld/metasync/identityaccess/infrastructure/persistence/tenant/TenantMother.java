@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.infrastructure.persistence.tenant;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
@@ -31,7 +31,7 @@ public class TenantMother {
         TenantStatus tenantStatus = new TenantStatus(StatusType.ACTIVE);
 
         return Tenant.reconstitute(tenantId, tenantAlias, schemaName, tenantName, contactEmail, tenantPlan, tenantStatus,
-                LocalDateTime.now());
+                Instant.now());
     }
 
     public static Tenant createWithAlias(String alias) {
@@ -44,6 +44,6 @@ public class TenantMother {
         TenantStatus tenantStatus = new TenantStatus(StatusType.ACTIVE);
 
         return Tenant.reconstitute(tenantId, tenantAlias, schemaName, tenantName, contactEmail, tenantPlan, tenantStatus,
-                LocalDateTime.now());
+                Instant.now());
     }
 }

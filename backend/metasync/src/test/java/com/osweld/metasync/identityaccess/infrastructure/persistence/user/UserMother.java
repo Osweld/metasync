@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
@@ -27,7 +27,7 @@ public class UserMother{
         EncryptedPassword encryptedPassword = new EncryptedPassword("encryptedPasswordencryptedPasswordencryptedPasswordencryptedPassword");
         UserStatus status = new UserStatus(StatusType.ACTIVE);
         UserRole role = new UserRole(Role.TENANT_OWNER);
-        LocalDateTime createdAt = LocalDateTime.now();
+        Instant createdAt = Instant.now();
         return User.reconstitute(userId, userName, encryptedPassword, emailAddress, status, role, createdAt);
 
     }

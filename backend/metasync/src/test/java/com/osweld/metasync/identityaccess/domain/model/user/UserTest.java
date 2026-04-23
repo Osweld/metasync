@@ -5,7 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ public class UserTest {
         private final EncryptedPassword encryptedPassword = new EncryptedPassword(
                         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
         private final UserRole userRole = new UserRole(Role.MEMBER);
-        private final LocalDateTime now = LocalDateTime.now();
+        private final Instant now = Instant.now();
 
 
         @Test

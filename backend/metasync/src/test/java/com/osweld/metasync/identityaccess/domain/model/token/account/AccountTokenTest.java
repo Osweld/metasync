@@ -1,6 +1,6 @@
 package com.osweld.metasync.identityaccess.domain.model.token.account;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +19,8 @@ public class AccountTokenTest {
     private final TenantId tenantId = TenantId.generate();
     private final TokenHash tokenHash = new TokenHash("a3a9e1ed9732cab28868127be00f1ce921acaefdd5c3b23a6e9e0072bd9c1a34");
     private final AccountTokenStatus accountTokenStatus = new AccountTokenStatus(TokenStatus.UNUSED);
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime expiresAt = createdAt.plusDays(1);
+    private final Instant createdAt = Instant.now();
+    private final Instant expiresAt = createdAt.plusSeconds(86_400L);
 
 
     AccountToken token = null;
@@ -69,7 +69,7 @@ public class AccountTokenTest {
     @DisplayName("Should consume token and set usedAt")
     void shouldConsumeTokenAndSetUsedAt() {
 
-        token.markAsUsed(LocalDateTime.now());
+        token.markAsUsed(Instant.now());
 
         assertThat(token.isUsed()).isTrue();
         assertThat(token.getUsedAt()).isNotNull();
@@ -80,7 +80,7 @@ public class AccountTokenTest {
     @Test
     @DisplayName("Should isExpired return false for setting usedAt")
     void shouldIsExpiredReturnFalseForSettingUsedAt() {
-        assertThat(token.isExpired(LocalDateTime.now())).isFalse();
+        assertThat(token.isExpired(Instant.now())).isFalse();
 
     }
 

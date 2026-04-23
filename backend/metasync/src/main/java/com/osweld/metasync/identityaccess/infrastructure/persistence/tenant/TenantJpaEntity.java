@@ -1,5 +1,6 @@
 package com.osweld.metasync.identityaccess.infrastructure.persistence.tenant;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -44,7 +45,7 @@ public class TenantJpaEntity {
     @Column(name = "plan", nullable = false, length = 20)
     private PlanType plan;
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private Instant createdAt;
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;
