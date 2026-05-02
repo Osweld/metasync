@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.osweld.metasync.identityaccess.application.port.out.TenantRepository;
 import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 
 import lombok.RequiredArgsConstructor;

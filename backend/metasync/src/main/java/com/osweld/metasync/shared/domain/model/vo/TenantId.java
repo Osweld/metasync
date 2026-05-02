@@ -1,4 +1,4 @@
-package com.osweld.metasync.identityaccess.domain.model.tenant;
+package com.osweld.metasync.shared.domain.model.vo;
 
 import java.util.UUID;
 
