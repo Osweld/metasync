@@ -24,7 +24,7 @@ import com.osweld.metasync.identityaccess.application.usecase.ProvisionTenantUse
 import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.domain.model.tenant.PlanType;
 import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.identityaccess.domain.model.tenant.TenantPlan;
 import com.osweld.metasync.identityaccess.infrastructure.in.web.controller.TenantProvisioningController;
 import com.osweld.metasync.identityaccess.infrastructure.in.web.dto.ProvisionTenantRequest;

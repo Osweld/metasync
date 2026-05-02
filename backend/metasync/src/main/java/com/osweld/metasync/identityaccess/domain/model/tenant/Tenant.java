@@ -8,6 +8,7 @@ import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
 import com.osweld.metasync.identityaccess.domain.model.tenant.event.TenantProvisioned;
 import com.osweld.metasync.shared.domain.model.vo.SchemaName;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;
 
 import lombok.Getter;

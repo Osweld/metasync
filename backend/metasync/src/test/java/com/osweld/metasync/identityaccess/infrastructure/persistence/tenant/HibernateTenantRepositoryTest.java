@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import com.osweld.metasync.identityaccess.domain.model.tenant.Tenant;
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.shared.domain.model.vo.TenantAlias;
 import com.osweld.metasync.shared.domain.model.vo.TenantName;
 import com.osweld.metasync.shared.infrastructure.AbstractIntegrationTest;

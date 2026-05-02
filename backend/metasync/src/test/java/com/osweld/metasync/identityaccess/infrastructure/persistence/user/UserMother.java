@@ -3,7 +3,7 @@ package com.osweld.metasync.identityaccess.infrastructure.persistence.user;
 import java.time.Instant;
 
 import com.osweld.metasync.identityaccess.domain.model.shared.EmailAddress;
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.identityaccess.domain.model.user.EncryptedPassword;
 import com.osweld.metasync.identityaccess.domain.model.user.PersonName;
 import com.osweld.metasync.identityaccess.domain.model.user.Role;

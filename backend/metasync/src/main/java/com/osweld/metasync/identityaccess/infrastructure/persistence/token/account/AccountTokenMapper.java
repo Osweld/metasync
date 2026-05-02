@@ -2,7 +2,7 @@ package com.osweld.metasync.identityaccess.infrastructure.persistence.token.acco
 
 import org.springframework.stereotype.Component;
 
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.identityaccess.domain.model.token.account.*;
 import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 

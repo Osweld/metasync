@@ -4,7 +4,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.osweld.metasync.identityaccess.domain.model.AggregateRoot;
-import com.osweld.metasync.identityaccess.domain.model.tenant.TenantId;
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import com.osweld.metasync.identityaccess.domain.model.user.UserId;
 
 import lombok.Getter;

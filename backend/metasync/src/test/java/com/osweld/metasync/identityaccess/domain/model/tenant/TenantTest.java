@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+import com.osweld.metasync.shared.domain.model.vo.TenantId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
